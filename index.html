@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no">
+<meta name="robots" content="noindex">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="theme-color" content="#000000">
+<title>Compás — prototype</title>
+<style>
+  * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  html, body { margin: 0; height: 100%; background: #000; color: #f2f2f7; font: 15px/1.4 -apple-system, system-ui, "Segoe UI", sans-serif; overflow: hidden; overscroll-behavior: none; }
+  #app { height: 100dvh; display: flex; align-items: center; justify-content: center; gap: 48px; }
+  /* The screen keeps the 430:932 shape and fits whatever space it has. */
+  #stage { position: relative; aspect-ratio: 430 / 932; height: min(100dvh, calc(100vw * 932 / 430)); container-type: size; touch-action: manipulation; user-select: none; }
+  #stage img { position: absolute; inset: 0; width: 100%; height: 100%; display: block; pointer-events: none; }
+  .hot { position: absolute; border: 0; padding: 0; background: transparent; cursor: pointer; border-radius: 10px; }
+  .hot:focus-visible { outline: 2px solid #0a84ff; }
+  .show .hot { background: rgba(10, 132, 255, .28); outline: 1.5px solid rgba(10, 132, 255, .9); }
+  .flash .hot { animation: flash .7s ease-out; }
+  @keyframes flash { 0% { background: rgba(10, 132, 255, .45); } 100% { background: transparent; } }
+  #menuBtn { position: absolute; left: 34%; top: 1.6%; width: 32%; height: 4.6%; border: 0; background: transparent; cursor: pointer; border-radius: 30px; }
+  #hint { position: absolute; left: 50%; top: 7.5%; transform: translateX(-50%); background: rgba(0, 0, 0, .78); color: #fff; padding: 8px 14px; border-radius: 18px; font-size: 13px; white-space: nowrap; pointer-events: none; transition: opacity .6s; }
+  #side { width: 300px; max-height: 92dvh; overflow: auto; display: none; }
+  #side h1 { font-size: 22px; margin: 0 0 4px; } #side p { color: #98989f; margin: 0 0 16px; }
+  .list { display: grid; gap: 2px; }
+  .list button { all: unset; cursor: pointer; padding: 7px 10px; border-radius: 8px; color: #d1d1d6; display: flex; gap: 10px; }
+  .list button:hover { background: #1c1c1e; } .list button.on { background: #0a84ff; color: #fff; }
+  .list b { width: 26px; font-weight: 600; }
+  label.tog { display: flex; gap: 8px; align-items: center; margin: 14px 0; color: #d1d1d6; cursor: pointer; }
+  #sheet { position: fixed; inset: 0; background: rgba(0, 0, 0, .86); display: none; overflow: auto; padding: 24px 18px 40px; z-index: 5; }
+  #sheet.open { display: block; }
+  #sheet h2 { margin: 0 0 12px; font-size: 20px; } #sheet .close { position: sticky; top: 0; float: right; all: unset; cursor: pointer; padding: 6px 12px; background: #2c2c2e; border-radius: 16px; }
+  /* Wide screens: show a phone body around the screen and the screen list beside it. */
+  @media (min-width: 820px) and (min-height: 600px) {
+    body { background: #111114; }
+    #stage { height: min(86dvh, 932px); border-radius: calc(min(86dvh, 932px) * 0.06); overflow: hidden; box-shadow: 0 0 0 12px #0b0b0d, 0 0 0 14px #2a2a2e, 0 30px 80px rgba(0, 0, 0, .6); }
+    #side { display: block; } #hint { display: none; }
+  }
+</style>
+</head>
+<body>
+<div id="app">
+  <div id="stage">
+    <img id="shot" alt="">
+    <div id="hots"></div>
+    <button id="menuBtn" aria-label="Open the list of screens"></button>
+    <div id="hint">Tap the black pill for all screens</div>
+  </div>
+  <aside id="side">
+    <h1>Compás</h1>
+    <p>Clickable prototype. Tap the screen like a real app.</p>
+    <label class="tog"><input type="checkbox" id="showHots"> Show where to tap</label>
+    <div class="list" id="listSide"></div>
+  </aside>
+</div>
+<div id="sheet"><button class="close" id="closeSheet">Close</button><h2>All screens</h2><div class="list" id="listSheet"></div></div>
+<script src="data.js"></script>
+<script>
+const byId = Object.fromEntries(SCREENS.map(s => [s.id, s]));
+// Self-check: every tap area must lead to a screen that exists.
+for (const s of SCREENS) for (const h of s.h) console.assert(h[4] === 'back' || byId[h[4]], 'bad destination', s.id, h[4]);
+
+const stage = document.getElementById('stage'), shot = document.getElementById('shot'), hots = document.getElementById('hots');
+const stack = []; let current = null, timer = null;
+
+function show(id, push = true) {
+  const s = byId[id]; if (!s) return;
+  clearTimeout(timer);
+  if (push && current) stack.push(current);
+  current = id;
+  shot.src = 'img/' + id + '.jpg'; shot.alt = s.t;
+  hots.replaceChildren(...s.h.map(([x, y, w, h, to]) => {
+    const b = document.createElement('button'); b.className = 'hot'; b.setAttribute('aria-label', to === 'back' ? 'Back' : 'Go to ' + byId[to].t);
+    b.style.cssText = `left:${x / 4.3}%;top:${y / 9.32}%;width:${w / 4.3}%;height:${h / 9.32}%`;
+    b.onclick = e => { e.stopPropagation(); to === 'back' ? back() : show(to); };
+    return b;
+  }));
+  if (s.auto) timer = setTimeout(() => current === id && show(s.auto[0]), s.auto[1]);
+  history.replaceState(null, '', '#' + id);
+  document.querySelectorAll('.list button').forEach(b => b.classList.toggle('on', b.dataset.id === id));
+}
+function back() { stack.length ? show(stack.pop(), false) : show('B2', false); }
+
+// A tap that misses every tap area flashes them, so nobody gets stuck.
+stage.onclick = () => { stage.classList.remove('flash'); void stage.offsetWidth; stage.classList.add('flash'); };
+
+for (const el of [document.getElementById('listSide'), document.getElementById('listSheet')])
+  el.append(...SCREENS.map(s => { const b = document.createElement('button'); b.dataset.id = s.id; b.innerHTML = `<b>${s.id}</b><span>${s.t}</span>`; b.onclick = () => { sheet.classList.remove('open'); stack.length = 0; show(s.id, false); }; return b; }));
+const sheet = document.getElementById('sheet');
+document.getElementById('menuBtn').onclick = e => { e.stopPropagation(); sheet.classList.add('open'); };
+document.getElementById('closeSheet').onclick = () => sheet.classList.remove('open');
+document.getElementById('showHots').onchange = e => stage.classList.toggle('show', e.target.checked);
+setTimeout(() => document.getElementById('hint').style.opacity = 0, 4000);
+
+show(byId[location.hash.slice(1)] ? location.hash.slice(1) : 'A1', false);
+onhashchange = () => { const id = location.hash.slice(1); if (byId[id] && id !== current) show(id, false); };
+SCREENS.forEach(s => { new Image().src = 'img/' + s.id + '.jpg'; }); // warm the cache so taps feel instant
+</script>
+</body>
+</html>
