@@ -67,7 +67,7 @@
   </aside>
 </div>
 <div id="sheet"><button class="close" id="closeSheet">Close</button><div class="ev" id="evSheet"></div><h2>All screens</h2><p><a href="map.html" style="color:#0a84ff">Navigation map</a></p><div class="list" id="listSheet"></div></div>
-<script src="data.js?v=mwpksi5l"></script>
+<script src="data.js?v=mwpl93ju"></script>
 <script>
 const byId = Object.fromEntries(SCREENS.map(s => [s.id, s]));
 // Self-check: every tap area must lead to a screen that exists.
@@ -110,7 +110,7 @@ function go(to, how) {
   if (how === 'home') {                                             // finishes a task: clear the trail
     if (to === 'B1' && stack.includes('I1')) to = 'I1';             // the introduction replayed from Settings returns there
     const root = TAB_ROOT[to[0]] || 'B2';
-    stack.length = 0; if (to !== root && to !== 'B1') stack.push(root);
+    stack.length = 0; if (to !== root && to !== 'B1' && !byId[to].root) stack.push(root);
     return show(to, false);
   }
   show(to);
