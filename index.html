@@ -18,8 +18,10 @@
   .hot { position: absolute; border: 0; padding: 0; background: transparent; cursor: pointer; border-radius: 10px; }
   .hot:focus-visible { outline: 2px solid #0a84ff; }
   .show .hot { background: rgba(10, 132, 255, .28); outline: 1.5px solid rgba(10, 132, 255, .9); }
-  .flash .hot { animation: flash .7s ease-out; }
-  @keyframes flash { 0% { background: rgba(10, 132, 255, .45); } 100% { background: transparent; } }
+  .flash .hot { animation: flash 1.6s ease-out; }
+  @keyframes flash { 0%, 55% { background: rgba(10, 132, 255, .38); outline: 2px solid rgba(10, 132, 255, .95); } 100% { background: transparent; outline: 2px solid transparent; } }
+  #toast { position: absolute; left: 50%; bottom: 13%; transform: translateX(-50%); background: rgba(0, 0, 0, .82); color: #fff; padding: 9px 15px; border-radius: 18px; font-size: 13px; white-space: nowrap; pointer-events: none; opacity: 0; transition: opacity .25s; z-index: 2; }
+  #toast.on { opacity: 1; }
   #menuBtn { position: absolute; left: 34%; top: 1.6%; width: 32%; height: 4.6%; border: 0; background: transparent; cursor: pointer; border-radius: 30px; }
   #hint { position: absolute; left: 50%; top: 7.5%; transform: translateX(-50%); background: rgba(0, 0, 0, .78); color: #fff; padding: 8px 14px; border-radius: 18px; font-size: 13px; white-space: nowrap; pointer-events: none; transition: opacity .6s; }
   #side { width: 300px; max-height: 92dvh; overflow: auto; display: none; }
@@ -47,6 +49,7 @@
     <div id="hots"></div>
     <button id="menuBtn" aria-label="Open the list of screens"></button>
     <div id="hint">Tap the black pill for all screens</div>
+    <div id="toast">Not linked yet. Blue areas are tappable.</div>
   </div>
   <aside id="side">
     <h1>Compás</h1>
@@ -83,8 +86,13 @@ function show(id, push = true) {
 }
 function back() { stack.length ? show(stack.pop(), false) : show('B2', false); }
 
-// A tap that misses every tap area flashes them, so nobody gets stuck.
-stage.onclick = () => { stage.classList.remove('flash'); void stage.offsetWidth; stage.classList.add('flash'); };
+// A tap that misses every tap area shows them and says so, so nobody is left guessing.
+const toast = document.getElementById('toast'); let toastTimer = null;
+stage.onclick = () => {
+  if (!byId[current].h.length) return;
+  stage.classList.remove('flash'); void stage.offsetWidth; stage.classList.add('flash');
+  toast.classList.add('on'); clearTimeout(toastTimer); toastTimer = setTimeout(() => toast.classList.remove('on'), 1600);
+};
 
 for (const el of [document.getElementById('listSide'), document.getElementById('listSheet')])
   el.append(...SCREENS.map(s => { const b = document.createElement('button'); b.dataset.id = s.id; b.innerHTML = `<b>${s.id}</b><span>${s.t}</span>`; b.onclick = () => { sheet.classList.remove('open'); stack.length = 0; show(s.id, false); }; return b; }));
