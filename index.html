@@ -49,17 +49,18 @@
     <div id="hots"></div>
     <button id="menuBtn" aria-label="Open the list of screens"></button>
     <div id="hint">Tap the black pill for all screens</div>
-    <div id="toast">Not linked yet. Blue areas are tappable.</div>
+    <div id="toast">Not clickable in this prototype. Blue areas are.</div>
   </div>
   <aside id="side">
     <h1>Compás</h1>
     <p>Clickable prototype. Tap the screen like a real app.</p>
+    <p><a href="map.html" style="color:#0a84ff">Navigation map</a></p>
     <label class="tog"><input type="checkbox" id="showHots"> Show where to tap</label>
     <div class="list" id="listSide"></div>
   </aside>
 </div>
-<div id="sheet"><button class="close" id="closeSheet">Close</button><h2>All screens</h2><div class="list" id="listSheet"></div></div>
-<script src="data.js"></script>
+<div id="sheet"><button class="close" id="closeSheet">Close</button><h2>All screens</h2><p><a href="map.html" style="color:#0a84ff">Navigation map</a></p><div class="list" id="listSheet"></div></div>
+<script src="data.js?v=mwphszkk"></script>
 <script>
 const byId = Object.fromEntries(SCREENS.map(s => [s.id, s]));
 // Self-check: every tap area must lead to a screen that exists.
@@ -73,11 +74,11 @@ function show(id, push = true) {
   clearTimeout(timer);
   if (push && current) stack.push(current);
   current = id;
-  shot.src = 'img/' + id + '.jpg'; shot.alt = s.t;
-  hots.replaceChildren(...s.h.map(([x, y, w, h, to]) => {
+  shot.src = 'img/' + id + '.jpg?v=' + BUILD; shot.alt = s.t;
+  hots.replaceChildren(...s.h.map(([x, y, w, h, to, how]) => {
     const b = document.createElement('button'); b.className = 'hot'; b.setAttribute('aria-label', to === 'back' ? 'Back' : 'Go to ' + byId[to].t);
     b.style.cssText = `left:${x / 4.3}%;top:${y / 9.32}%;width:${w / 4.3}%;height:${h / 9.32}%`;
-    b.onclick = e => { e.stopPropagation(); to === 'back' ? back() : show(to); };
+    b.onclick = e => { e.stopPropagation(); go(to, how); };
     return b;
   }));
   if (s.auto) timer = setTimeout(() => current === id && show(s.auto[0]), s.auto[1]);
@@ -85,6 +86,25 @@ function show(id, push = true) {
   document.querySelectorAll('.list button').forEach(b => b.classList.toggle('on', b.dataset.id === id));
 }
 function back() { stack.length ? show(stack.pop(), false) : show('B2', false); }
+// How a link behaves comes from docs/product/navigation.md.
+const TAB_ROOT = { G: 'G1', H: 'H1', I: 'I1' }; // every other flow belongs to the Library
+function go(to, how) {
+  if (to === 'back' || how === 'back') return back();
+  if (how === 'switch') return show(to, false);                     // replaces the current state
+  if (how === 'tab') { stack.length = 0; return show(to, false); }
+  if (how === 'home') {                                             // finishes a task: clear the trail
+    if (to === 'B1' && stack.includes('I1')) to = 'I1';             // the introduction replayed from Settings returns there
+    const root = TAB_ROOT[to[0]] || 'B2';
+    stack.length = 0; if (to !== root && to !== 'B1') stack.push(root);
+    return show(to, false);
+  }
+  show(to);
+}
+// Swiping from the left edge goes back, as on an iPhone. Escape does the same on a computer.
+let swipe = null;
+stage.addEventListener('touchstart', e => { const t = e.touches[0]; swipe = t.clientX - stage.getBoundingClientRect().left < 30 ? t.clientX : null; }, { passive: true });
+stage.addEventListener('touchend', e => { if (swipe !== null && e.changedTouches[0].clientX - swipe > 70) back(); swipe = null; });
+addEventListener('keydown', e => { if (e.key === 'Escape') back(); });
 
 // A tap that misses every tap area shows them and says so, so nobody is left guessing.
 const toast = document.getElementById('toast'); let toastTimer = null;
@@ -104,7 +124,7 @@ setTimeout(() => document.getElementById('hint').style.opacity = 0, 4000);
 
 show(byId[location.hash.slice(1)] ? location.hash.slice(1) : 'A1', false);
 onhashchange = () => { const id = location.hash.slice(1); if (byId[id] && id !== current) show(id, false); };
-SCREENS.forEach(s => { new Image().src = 'img/' + s.id + '.jpg'; }); // warm the cache so taps feel instant
+SCREENS.forEach(s => { new Image().src = 'img/' + s.id + '.jpg?v=' + BUILD; }); // warm the cache so taps feel instant
 </script>
 </body>
 </html>
