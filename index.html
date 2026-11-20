@@ -67,7 +67,7 @@
   </aside>
 </div>
 <div id="sheet"><button class="close" id="closeSheet">Close</button><div class="ev" id="evSheet"></div><h2>All screens</h2><p><a href="map.html" style="color:#0a84ff">Navigation map</a></p><div class="list" id="listSheet"></div></div>
-<script src="data.js?v=mwpjbhac"></script>
+<script src="data.js?v=mwpkbec9"></script>
 <script>
 const byId = Object.fromEntries(SCREENS.map(s => [s.id, s]));
 // Self-check: every tap area must lead to a screen that exists.
@@ -82,10 +82,12 @@ function show(id, push = true) {
   if (push && current) stack.push(current);
   current = id;
   shot.src = 'img/' + id + '.jpg?v=' + BUILD; shot.alt = s.t;
-  hots.replaceChildren(...s.h.map(([x, y, w, h, to, how, hold]) => {
+  hots.replaceChildren(...s.h.map(([x, y, w, h, to, how, tag]) => {
+    const hold = tag === 'hold';
     const b = document.createElement(hold ? 'div' : 'button'); b.className = hold ? 'hold' : 'hot'; b.setAttribute('aria-label', to === 'back' ? 'Back' : 'Go to ' + byId[to].t);
     b.style.cssText = `left:${x / 4.3}%;top:${y / 9.32}%;width:${w / 4.3}%;height:${h / 9.32}%`;
-    if (!hold) b.onclick = e => { e.stopPropagation(); go(to, how); };
+    // An area tagged "alt" is a back button whose result depends on the screen underneath (for example Done on a form).
+    if (!hold) b.onclick = e => { e.stopPropagation(); const alt = tag === 'alt' && s.alt && s.alt[stack[stack.length - 1]]; alt ? go(...alt) : go(to, how); };
     return b;
   }));
   if (s.auto) timer = setTimeout(() => current === id && go(s.auto[0], s.auto[2]), s.auto[1]);
@@ -125,7 +127,7 @@ addEventListener('keydown', e => { if (e.key === 'Escape') back(); if (e.key ===
 let holdTimer = null, held = false;
 stage.addEventListener('pointerdown', e => {
   const r = stage.getBoundingClientRect(), px = (e.clientX - r.left) / r.width * 430, py = (e.clientY - r.top) / r.height * 932;
-  const a = byId[current].h.find(h => h[6] && px >= h[0] && px <= h[0] + h[2] && py >= h[1] && py <= h[1] + h[3]);
+  const a = byId[current].h.find(h => h[6] === 'hold' && px >= h[0] && px <= h[0] + h[2] && py >= h[1] && py <= h[1] + h[3]);
   if (a) holdTimer = setTimeout(() => { held = true; go(a[4], a[5]); }, 500);
 });
 for (const ev of ['pointerup', 'pointercancel', 'pointerleave']) stage.addEventListener(ev, () => { clearTimeout(holdTimer); setTimeout(() => held = false, 60); });

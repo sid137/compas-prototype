@@ -15,7 +15,7 @@
   .nodeLabel small { color: #6e6e73; } .nodeLabel i { color: #6e6e73; font-size: 12px; }
 </style></head><body>
 <h1>Compás — navigation map</h1>
-<p>Every state the app can be in, and every way from one to another. Drawn from the text file <code>docs/product/navigation.md</code>, which is the reference to edit. 79 states (79 designed, 0 planned), 293 transitions, of which 0 are stand-ins that show the wrong content for now, 30 happen only under a condition the prototype cannot produce, and 14 are not built yet. Click a designed state to open it in the <a href="./">prototype</a>.</p>
+<p>Every state the app can be in, and every way from one to another. Drawn from the text file <code>docs/product/navigation.md</code>, which is the reference to edit. 87 states (87 designed, 0 planned), 320 transitions, of which 0 are stand-ins that show the wrong content for now, 30 happen only under a condition the prototype cannot produce, and 22 are not built yet. Click a designed state to open it in the <a href="./">prototype</a>.</p>
 <div class="card"><b>Checks:</b> <span class="ok">all pass.</span> Every state can be entered and left, every reference exists, and every designed state can be reached with what is built today.</div>
 <div class="card"><b>How to read it</b><table><tr><td>White box, solid outline</td><td>A state that is designed.</td></tr><tr><td>Grey box, dashed outline</td><td>A state that is planned and not drawn yet. There are none at the moment.</td></tr><tr><td>Blue rounded box</td><td>A state in another flow that this flow comes from or goes to.</td></tr><tr><td>Plain arrow</td><td>Opens the new state on top. Back returns.</td></tr><tr><td>Thick arrow, marked ⇄</td><td>Switches: replaces the current state (tabs, on and off).</td></tr><tr><td>Arrow marked ⌂</td><td>Finishes a task and clears the trail, so Back goes to the Library or the tab root.</td></tr><tr><td>Arrow marked ⏱</td><td>Happens by itself.</td></tr><tr><td>Arrow marked ≈</td><td>A stand-in: the prototype goes there, but it is the wrong place. The right state is not drawn yet.</td></tr><tr><td>Arrow marked ◇</td><td>Happens because of something other than a tap (a full phone, an empty camera roll, turning the phone). The state is drawn, and no tap leads there; in the prototype, pick it under "What can happen here" in the list of screens.</td></tr><tr><td>Dotted arrow</td><td>A transition that is planned and not built yet.</td></tr><tr><td>"←" line inside a box</td><td>The controls on that state that go back to wherever the person came from.</td></tr></table>The tab bar (Library, Teachers, Settings, Search) is on every tab root and is left out of the diagrams to keep them readable.</div>
 <nav class="card"><b>Flows:</b> <a href="#A">A · First launch</a><a href="#B">B · Library</a><a href="#C">C · Record</a><a href="#D">D · Import</a><a href="#E">E · Move</a><a href="#F">F · Player</a><a href="#G">G · Search</a><a href="#H">H · Teachers</a><a href="#I">I · Settings</a><a href="#J">J · Voice assistant (exploratory)</a><a href="#S">S · Shared pieces</a></nav>
@@ -27,7 +27,7 @@
   E["&lt;b>E&lt;/b> Move&lt;br/>&lt;small>13 designed&lt;/small>"]:::flow
   F["&lt;b>F&lt;/b> Player&lt;br/>&lt;small>10 designed&lt;/small>"]:::flow
   G["&lt;b>G&lt;/b> Search&lt;br/>&lt;small>6 designed&lt;/small>"]:::flow
-  H["&lt;b>H&lt;/b> Teachers&lt;br/>&lt;small>9 designed&lt;/small>"]:::flow
+  H["&lt;b>H&lt;/b> Teachers&lt;br/>&lt;small>17 designed&lt;/small>"]:::flow
   I["&lt;b>I&lt;/b> Settings&lt;br/>&lt;small>10 designed&lt;/small>"]:::flow
   J["&lt;b>J&lt;/b> Voice assistant (exploratory)&lt;br/>&lt;small>5 designed&lt;/small>"]:::flow
   S["&lt;b>S&lt;/b> Shared pieces&lt;br/>&lt;small>2 designed&lt;/small>"]:::flow
@@ -57,7 +57,7 @@
   F -- "3" --> J
   G -- "1" --> E
   H -- "1" --> E
-  H -- "8" --> S
+  H -- "13" --> S
   I -- "1" --> A
   S -- "1" --> E
   classDef flow fill:#ffffff,stroke:#1c1c1e,stroke-width:1.5px,color:#1c1c1e;</pre></section>
@@ -497,7 +497,15 @@
   H6["&lt;img src='img/H6.jpg' width='70' height='152' style='border-radius:9px;display:block;margin:0 auto 6px'/>&lt;b>H6&lt;/b> Edit teacher&lt;br/>&lt;small>modal&lt;/small>&lt;br/>&lt;i>← Cancel or Done&lt;/i>"]:::designed
   H7["&lt;img src='img/H7.jpg' width='70' height='152' style='border-radius:9px;display:block;margin:0 auto 6px'/>&lt;b>H7&lt;/b> Delete this teacher?&lt;br/>&lt;small>dialog&lt;/small>&lt;br/>&lt;i>← Cancel&lt;/i>"]:::designed
   H8["&lt;img src='img/H8.jpg' width='70' height='152' style='border-radius:9px;display:block;margin:0 auto 6px'/>&lt;b>H8&lt;/b> Delete this class?&lt;br/>&lt;small>dialog&lt;/small>&lt;br/>&lt;i>← Cancel&lt;/i>"]:::designed
-  H9["&lt;img src='img/H9.jpg' width='70' height='152' style='border-radius:9px;display:block;margin:0 auto 6px'/>&lt;b>H9&lt;/b> New class&lt;br/>&lt;small>modal&lt;/small>&lt;br/>&lt;i>← Cancel or Done&lt;/i>"]:::designed
+  H9["&lt;img src='img/H9.jpg' width='70' height='152' style='border-radius:9px;display:block;margin:0 auto 6px'/>&lt;b>H9&lt;/b> New class&lt;br/>&lt;small>modal&lt;/small>&lt;br/>&lt;i>← Cancel&lt;/i>"]:::designed
+  H10["&lt;img src='img/H10.jpg' width='70' height='152' style='border-radius:9px;display:block;margin:0 auto 6px'/>&lt;b>H10&lt;/b> New class, day chosen&lt;br/>&lt;small>modal&lt;/small>&lt;br/>&lt;i>← Cancel&lt;/i>"]:::designed
+  H11["&lt;img src='img/H11.jpg' width='70' height='152' style='border-radius:9px;display:block;margin:0 auto 6px'/>&lt;b>H11&lt;/b> Start time&lt;br/>&lt;small>sheet&lt;/small>"]:::designed
+  H12["&lt;img src='img/H12.jpg' width='70' height='152' style='border-radius:9px;display:block;margin:0 auto 6px'/>&lt;b>H12&lt;/b> New class, day and times set&lt;br/>&lt;small>modal&lt;/small>&lt;br/>&lt;i>← Cancel&lt;/i>"]:::designed
+  H13["&lt;img src='img/H13.jpg' width='70' height='152' style='border-radius:9px;display:block;margin:0 auto 6px'/>&lt;b>H13&lt;/b> Style&lt;br/>&lt;small>sheet&lt;/small>"]:::designed
+  H14["&lt;img src='img/H14.jpg' width='70' height='152' style='border-radius:9px;display:block;margin:0 auto 6px'/>&lt;b>H14&lt;/b> New class, style set&lt;br/>&lt;small>modal&lt;/small>&lt;br/>&lt;i>← Cancel&lt;/i>"]:::designed
+  H15["&lt;img src='img/H15.jpg' width='70' height='152' style='border-radius:9px;display:block;margin:0 auto 6px'/>&lt;b>H15&lt;/b> Level&lt;br/>&lt;small>sheet&lt;/small>"]:::designed
+  H16["&lt;img src='img/H16.jpg' width='70' height='152' style='border-radius:9px;display:block;margin:0 auto 6px'/>&lt;b>H16&lt;/b> New class, ready&lt;br/>&lt;small>modal&lt;/small>&lt;br/>&lt;i>← Cancel · Done&lt;/i>"]:::designed
+  H17["&lt;img src='img/H17.jpg' width='70' height='152' style='border-radius:9px;display:block;margin:0 auto 6px'/>&lt;b>H17&lt;/b> New teacher, class added&lt;br/>&lt;small>modal&lt;/small>&lt;br/>&lt;i>← Cancel&lt;/i>"]:::designed
   from_A4(["&lt;b>A4&lt;/b> Introduction 3: schedule →"]):::outside
   from_A4 -- "Add my teachers first" --> H4
   H1 -- "a teacher" --> H2
@@ -509,6 +517,28 @@
   H2 -- "Add class" --> H9
   H4 -- "Add class" --> H9
   H6 -- "Add class" --> H9
+  H17 -- "Add class" --> H9
+  H9 == "⇄ a day (Thursday in the prototype)" ==> H10
+  H10 == "⇄ Starts" ==> H11
+  H11 == "⇄ Done" ==> H12
+  H11 == "⇄ the dimmed area" ==> H10
+  H12 == "⇄ Style" ==> H13
+  H13 == "⇄ a style (Son in the prototype)" ==> H14
+  H13 == "⇄ Cancel or the dimmed area" ==> H12
+  H14 == "⇄ Level" ==> H15
+  H15 == "⇄ a level (Débutant in the prototype)" ==> H16
+  H15 == "⇄ Cancel or the dimmed area" ==> H14
+  H16 -- "⌂ Done" --> H17
+  H17 -- "⌂ Save" --> H1
+  H12 -. "⇄ Ends" .-> H11
+  H14 -. "⇄ Ends" .-> H11
+  H16 -. "⇄ Ends" .-> H11
+  to_S1(["→ &lt;b>S1&lt;/b> Choose a value"]):::outside
+  H9 -. "Location" .-> to_S1
+  H10 -. "Location" .-> to_S1
+  H12 -. "Location" .-> to_S1
+  H14 -. "Location" .-> to_S1
+  H16 -. "Location" .-> to_S1
   H3 -- "Delete class" --> H8
   H8 -- "⌂ Delete" --> H2
   to_E1(["→ &lt;b>E1&lt;/b> Move, steps"]):::outside
@@ -517,7 +547,6 @@
   H6 -- "Delete teacher" --> H7
   H7 -- "⌂ Delete" --> H1
   H4 -- "⌂ Save" --> H1
-  to_S1(["→ &lt;b>S1&lt;/b> Choose a value"]):::outside
   H3 -. "any other row that shows a value" .-> to_S1
   H4 -. "any other row that shows a value" .-> to_S1
   H6 -. "any other row that shows a value" .-> to_S1
@@ -536,9 +565,17 @@
   click H7 href "./#H7" _blank
   click H8 href "./#H8" _blank
   click H9 href "./#H9" _blank
+  click H10 href "./#H10" _blank
+  click H11 href "./#H11" _blank
+  click H12 href "./#H12" _blank
+  click H13 href "./#H13" _blank
+  click H14 href "./#H14" _blank
+  click H15 href "./#H15" _blank
+  click H16 href "./#H16" _blank
+  click H17 href "./#H17" _blank
   classDef designed fill:#ffffff,stroke:#1c1c1e,stroke-width:1.5px,color:#1c1c1e;
   classDef planned fill:#fafafa,stroke:#a0a0a8,stroke-width:1.5px,stroke-dasharray:6 4,color:#6e6e73;
-  classDef outside fill:#eef4ff,stroke:#0a84ff,stroke-width:1px,color:#0a4aa8;</pre><details><summary>All 23 transitions in this flow</summary><table><tr><th>From</th><th>The user does</th><th>To</th><th>How</th><th>Status</th></tr><tr class=""><td>H1</td><td>Taps a teacher</td><td>H2</td><td>open</td><td>Designed</td></tr><tr class=""><td>H1</td><td>Taps Add</td><td>H4</td><td>open</td><td>Designed</td></tr><tr class=""><td>H5</td><td>Taps Add</td><td>H4</td><td>open</td><td>Designed</td></tr><tr class=""><td>H5</td><td>Taps Add a teacher</td><td>H4</td><td>open</td><td>Designed</td></tr><tr class=""><td>H2</td><td>Taps Back</td><td>back</td><td>back</td><td>Designed</td></tr><tr class=""><td>H2</td><td>Taps a class</td><td>H3</td><td>open</td><td>Designed</td></tr><tr class=""><td>H6</td><td>Taps a class</td><td>H3</td><td>open</td><td>Designed</td></tr><tr class=""><td>H2</td><td>Taps Add class</td><td>H9</td><td>open</td><td>Designed</td></tr><tr class=""><td>H4</td><td>Taps Add class</td><td>H9</td><td>open</td><td>Designed</td></tr><tr class=""><td>H6</td><td>Taps Add class</td><td>H9</td><td>open</td><td>Designed</td></tr><tr class=""><td>H9</td><td>Taps Cancel or Done</td><td>back</td><td>back</td><td>Designed</td></tr><tr class=""><td>H3</td><td>Taps Delete class</td><td>H8</td><td>open</td><td>Designed</td></tr><tr class=""><td>H8</td><td>Taps Delete</td><td>H2</td><td>home</td><td>Designed</td></tr><tr class=""><td>H8</td><td>Taps Cancel</td><td>back</td><td>back</td><td>Designed</td></tr><tr class=""><td>H2</td><td>Taps a move</td><td>E1</td><td>open</td><td>Designed</td></tr><tr class=""><td>H2</td><td>Taps Edit</td><td>H6</td><td>open</td><td>Designed</td></tr><tr class=""><td>H6</td><td>Taps Cancel or Done</td><td>back</td><td>back</td><td>Designed</td></tr><tr class=""><td>H6</td><td>Taps Delete teacher</td><td>H7</td><td>open</td><td>Designed</td></tr><tr class=""><td>H7</td><td>Taps Delete</td><td>H1</td><td>home</td><td>Designed</td></tr><tr class=""><td>H7</td><td>Taps Cancel</td><td>back</td><td>back</td><td>Designed</td></tr><tr class=""><td>H3</td><td>Taps Cancel or Done</td><td>back</td><td>back</td><td>Designed</td></tr><tr class=""><td>H4</td><td>Taps Cancel</td><td>back</td><td>back</td><td>Designed</td></tr><tr class=""><td>H4</td><td>Taps Save</td><td>H1</td><td>home</td><td>Designed</td></tr></table></details></section>
+  classDef outside fill:#eef4ff,stroke:#0a84ff,stroke-width:1px,color:#0a4aa8;</pre><details><summary>All 50 transitions in this flow</summary><table><tr><th>From</th><th>The user does</th><th>To</th><th>How</th><th>Status</th></tr><tr class=""><td>H1</td><td>Taps a teacher</td><td>H2</td><td>open</td><td>Designed</td></tr><tr class=""><td>H1</td><td>Taps Add</td><td>H4</td><td>open</td><td>Designed</td></tr><tr class=""><td>H5</td><td>Taps Add</td><td>H4</td><td>open</td><td>Designed</td></tr><tr class=""><td>H5</td><td>Taps Add a teacher</td><td>H4</td><td>open</td><td>Designed</td></tr><tr class=""><td>H2</td><td>Taps Back</td><td>back</td><td>back</td><td>Designed</td></tr><tr class=""><td>H2</td><td>Taps a class</td><td>H3</td><td>open</td><td>Designed</td></tr><tr class=""><td>H6</td><td>Taps a class</td><td>H3</td><td>open</td><td>Designed</td></tr><tr class=""><td>H2</td><td>Taps Add class</td><td>H9</td><td>open</td><td>Designed</td></tr><tr class=""><td>H4</td><td>Taps Add class</td><td>H9</td><td>open</td><td>Designed</td></tr><tr class=""><td>H6</td><td>Taps Add class</td><td>H9</td><td>open</td><td>Designed</td></tr><tr class=""><td>H17</td><td>Taps Add class</td><td>H9</td><td>open</td><td>Designed</td></tr><tr class=""><td>H9</td><td>Taps Cancel</td><td>back</td><td>back</td><td>Designed</td></tr><tr class=""><td>H10</td><td>Taps Cancel</td><td>back</td><td>back</td><td>Designed</td></tr><tr class=""><td>H12</td><td>Taps Cancel</td><td>back</td><td>back</td><td>Designed</td></tr><tr class=""><td>H14</td><td>Taps Cancel</td><td>back</td><td>back</td><td>Designed</td></tr><tr class=""><td>H16</td><td>Taps Cancel</td><td>back</td><td>back</td><td>Designed</td></tr><tr class=""><td>H9</td><td>Taps a day (Thursday in the prototype)</td><td>H10</td><td>switch</td><td>Designed</td></tr><tr class=""><td>H10</td><td>Taps Starts</td><td>H11</td><td>switch</td><td>Designed</td></tr><tr class=""><td>H11</td><td>Taps Done</td><td>H12</td><td>switch</td><td>Designed</td></tr><tr class=""><td>H11</td><td>Taps the dimmed area</td><td>H10</td><td>switch</td><td>Designed</td></tr><tr class=""><td>H12</td><td>Taps Style</td><td>H13</td><td>switch</td><td>Designed</td></tr><tr class=""><td>H13</td><td>Taps a style (Son in the prototype)</td><td>H14</td><td>switch</td><td>Designed</td></tr><tr class=""><td>H13</td><td>Taps Cancel or the dimmed area</td><td>H12</td><td>switch</td><td>Designed</td></tr><tr class=""><td>H14</td><td>Taps Level</td><td>H15</td><td>switch</td><td>Designed</td></tr><tr class=""><td>H15</td><td>Taps a level (Débutant in the prototype)</td><td>H16</td><td>switch</td><td>Designed</td></tr><tr class=""><td>H15</td><td>Taps Cancel or the dimmed area</td><td>H14</td><td>switch</td><td>Designed</td></tr><tr class=""><td>H16</td><td>Taps Done</td><td>back</td><td>back</td><td>Designed</td></tr><tr class=""><td>H16</td><td>Taps Done, when the form was opened from H4</td><td>H17</td><td>home</td><td>Web only</td></tr><tr class=""><td>H17</td><td>Taps Cancel</td><td>back</td><td>back</td><td>Designed</td></tr><tr class=""><td>H17</td><td>Taps Save</td><td>H1</td><td>home</td><td>Designed</td></tr><tr class="p"><td>H12</td><td>Taps Ends</td><td>H11</td><td>switch</td><td>Planned</td></tr><tr class="p"><td>H14</td><td>Taps Ends</td><td>H11</td><td>switch</td><td>Planned</td></tr><tr class="p"><td>H16</td><td>Taps Ends</td><td>H11</td><td>switch</td><td>Planned</td></tr><tr class="p"><td>H9</td><td>Taps Location</td><td>S1</td><td>open</td><td>Planned</td></tr><tr class="p"><td>H10</td><td>Taps Location</td><td>S1</td><td>open</td><td>Planned</td></tr><tr class="p"><td>H12</td><td>Taps Location</td><td>S1</td><td>open</td><td>Planned</td></tr><tr class="p"><td>H14</td><td>Taps Location</td><td>S1</td><td>open</td><td>Planned</td></tr><tr class="p"><td>H16</td><td>Taps Location</td><td>S1</td><td>open</td><td>Planned</td></tr><tr class=""><td>H3</td><td>Taps Delete class</td><td>H8</td><td>open</td><td>Designed</td></tr><tr class=""><td>H8</td><td>Taps Delete</td><td>H2</td><td>home</td><td>Designed</td></tr><tr class=""><td>H8</td><td>Taps Cancel</td><td>back</td><td>back</td><td>Designed</td></tr><tr class=""><td>H2</td><td>Taps a move</td><td>E1</td><td>open</td><td>Designed</td></tr><tr class=""><td>H2</td><td>Taps Edit</td><td>H6</td><td>open</td><td>Designed</td></tr><tr class=""><td>H6</td><td>Taps Cancel or Done</td><td>back</td><td>back</td><td>Designed</td></tr><tr class=""><td>H6</td><td>Taps Delete teacher</td><td>H7</td><td>open</td><td>Designed</td></tr><tr class=""><td>H7</td><td>Taps Delete</td><td>H1</td><td>home</td><td>Designed</td></tr><tr class=""><td>H7</td><td>Taps Cancel</td><td>back</td><td>back</td><td>Designed</td></tr><tr class=""><td>H3</td><td>Taps Cancel or Done</td><td>back</td><td>back</td><td>Designed</td></tr><tr class=""><td>H4</td><td>Taps Cancel</td><td>back</td><td>back</td><td>Designed</td></tr><tr class=""><td>H4</td><td>Taps Save</td><td>H1</td><td>home</td><td>Designed</td></tr></table></details></section>
 <section><h2 id="I">I · Settings</h2><pre class="mermaid">flowchart LR
   I1["&lt;img src='img/I1.jpg' width='70' height='152' style='border-radius:9px;display:block;margin:0 auto 6px'/>&lt;b>I1&lt;/b> Settings&lt;br/>&lt;small>tab root&lt;/small>"]:::designed
   I2["&lt;img src='img/I2.jpg' width='70' height='152' style='border-radius:9px;display:block;margin:0 auto 6px'/>&lt;b>I2&lt;/b> Styles&lt;br/>&lt;small>screen&lt;/small>&lt;br/>&lt;i>← Back&lt;/i>"]:::designed
@@ -614,6 +651,16 @@
   S2["&lt;img src='img/S2.jpg' width='70' height='152' style='border-radius:9px;display:block;margin:0 auto 6px'/>&lt;b>S2&lt;/b> Discard your changes?&lt;br/>&lt;small>dialog&lt;/small>&lt;br/>&lt;i>← Keep editing&lt;/i>"]:::designed
   from_C1(["&lt;b>C1&lt;/b> Record, ready →"]):::outside
   from_C1 -. "the class in the top bar" .-> S1
+  from_H9(["&lt;b>H9&lt;/b> New class →"]):::outside
+  from_H9 -. "Location" .-> S1
+  from_H10(["&lt;b>H10&lt;/b> New class, day chosen →"]):::outside
+  from_H10 -. "Location" .-> S1
+  from_H12(["&lt;b>H12&lt;/b> New class, day and times set →"]):::outside
+  from_H12 -. "Location" .-> S1
+  from_H14(["&lt;b>H14&lt;/b> New class, style set →"]):::outside
+  from_H14 -. "Location" .-> S1
+  from_H16(["&lt;b>H16&lt;/b> New class, ready →"]):::outside
+  from_H16 -. "Location" .-> S1
   from_C4(["&lt;b>C4&lt;/b> Save take →"]):::outside
   from_C4 -- "the Teacher row" --> S1
   from_C4 -. "any other row that shows a value" .-> S1
@@ -631,7 +678,6 @@
   from_H4 -. "any other row that shows a value" .-> S1
   from_H6(["&lt;b>H6&lt;/b> Edit teacher →"]):::outside
   from_H6 -. "any other row that shows a value" .-> S1
-  from_H9(["&lt;b>H9&lt;/b> New class →"]):::outside
   from_H9 -. "any other row that shows a value" .-> S1
   from_D2 -- "◇ Cancel after changing something" --> S2
   from_E4 -- "◇ Cancel after changing something" --> S2
