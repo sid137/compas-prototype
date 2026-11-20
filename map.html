@@ -15,20 +15,20 @@
   .nodeLabel small { color: #6e6e73; } .nodeLabel i { color: #6e6e73; font-size: 12px; }
 </style></head><body>
 <h1>Compás — navigation map</h1>
-<p>Every state the app can be in, and every way from one to another. Drawn from the text file <code>docs/product/navigation.md</code>, which is the reference to edit. 74 states (74 designed, 0 planned), 271 transitions, of which 5 are stand-ins that show the wrong content for now, 29 happen only under a condition the prototype cannot produce, and 21 are not built yet. Click a designed state to open it in the <a href="./">prototype</a>.</p>
+<p>Every state the app can be in, and every way from one to another. Drawn from the text file <code>docs/product/navigation.md</code>, which is the reference to edit. 79 states (79 designed, 0 planned), 293 transitions, of which 0 are stand-ins that show the wrong content for now, 30 happen only under a condition the prototype cannot produce, and 14 are not built yet. Click a designed state to open it in the <a href="./">prototype</a>.</p>
 <div class="card"><b>Checks:</b> <span class="ok">all pass.</span> Every state can be entered and left, every reference exists, and every designed state can be reached with what is built today.</div>
-<div class="card"><b>How to read it</b><table><tr><td>White box, solid outline</td><td>A state that is designed.</td></tr><tr><td>Grey box, dashed outline</td><td>A state that is planned and not drawn yet. There are none at the moment.</td></tr><tr><td>Blue rounded box</td><td>A state in another flow that this flow comes from or goes to.</td></tr><tr><td>Plain arrow</td><td>Opens the new state on top. Back returns.</td></tr><tr><td>Thick arrow, marked ⇄</td><td>Switches: replaces the current state (tabs, on and off).</td></tr><tr><td>Arrow marked ⌂</td><td>Finishes a task and clears the trail, so Back goes to the Library or the tab root.</td></tr><tr><td>Arrow marked ⏱</td><td>Happens by itself.</td></tr><tr><td>Arrow marked ≈</td><td>A stand-in: the prototype goes there, but it is the wrong place. The right state is not drawn yet.</td></tr><tr><td>Arrow marked ◇</td><td>Happens because of something other than a tap (a phone call, an empty camera roll, turning the phone). The state is drawn, but no tap in the prototype leads there.</td></tr><tr><td>Dotted arrow</td><td>A transition that is planned and not built yet.</td></tr><tr><td>"←" line inside a box</td><td>The controls on that state that go back to wherever the person came from.</td></tr></table>The tab bar (Library, Teachers, Settings, Search) is on every tab root and is left out of the diagrams to keep them readable.</div>
+<div class="card"><b>How to read it</b><table><tr><td>White box, solid outline</td><td>A state that is designed.</td></tr><tr><td>Grey box, dashed outline</td><td>A state that is planned and not drawn yet. There are none at the moment.</td></tr><tr><td>Blue rounded box</td><td>A state in another flow that this flow comes from or goes to.</td></tr><tr><td>Plain arrow</td><td>Opens the new state on top. Back returns.</td></tr><tr><td>Thick arrow, marked ⇄</td><td>Switches: replaces the current state (tabs, on and off).</td></tr><tr><td>Arrow marked ⌂</td><td>Finishes a task and clears the trail, so Back goes to the Library or the tab root.</td></tr><tr><td>Arrow marked ⏱</td><td>Happens by itself.</td></tr><tr><td>Arrow marked ≈</td><td>A stand-in: the prototype goes there, but it is the wrong place. The right state is not drawn yet.</td></tr><tr><td>Arrow marked ◇</td><td>Happens because of something other than a tap (a full phone, an empty camera roll, turning the phone). The state is drawn, and no tap leads there; in the prototype, pick it under "What can happen here" in the list of screens.</td></tr><tr><td>Dotted arrow</td><td>A transition that is planned and not built yet.</td></tr><tr><td>"←" line inside a box</td><td>The controls on that state that go back to wherever the person came from.</td></tr></table>The tab bar (Library, Teachers, Settings, Search) is on every tab root and is left out of the diagrams to keep them readable.</div>
 <nav class="card"><b>Flows:</b> <a href="#A">A · First launch</a><a href="#B">B · Library</a><a href="#C">C · Record</a><a href="#D">D · Import</a><a href="#E">E · Move</a><a href="#F">F · Player</a><a href="#G">G · Search</a><a href="#H">H · Teachers</a><a href="#I">I · Settings</a><a href="#J">J · Voice assistant (exploratory)</a><a href="#S">S · Shared pieces</a></nav>
 <section><h2>Overview: how the flows connect</h2><p>The number on an arrow is how many transitions go that way. A dotted arrow means none of them is built yet.</p><pre class="mermaid">flowchart LR
   A["&lt;b>A&lt;/b> First launch&lt;br/>&lt;small>4 designed&lt;/small>"]:::flow
   B["&lt;b>B&lt;/b> Library&lt;br/>&lt;small>4 designed&lt;/small>"]:::flow
   C["&lt;b>C&lt;/b> Record&lt;br/>&lt;small>7 designed&lt;/small>"]:::flow
   D["&lt;b>D&lt;/b> Import&lt;br/>&lt;small>9 designed&lt;/small>"]:::flow
-  E["&lt;b>E&lt;/b> Move&lt;br/>&lt;small>10 designed&lt;/small>"]:::flow
+  E["&lt;b>E&lt;/b> Move&lt;br/>&lt;small>13 designed&lt;/small>"]:::flow
   F["&lt;b>F&lt;/b> Player&lt;br/>&lt;small>10 designed&lt;/small>"]:::flow
   G["&lt;b>G&lt;/b> Search&lt;br/>&lt;small>6 designed&lt;/small>"]:::flow
   H["&lt;b>H&lt;/b> Teachers&lt;br/>&lt;small>9 designed&lt;/small>"]:::flow
-  I["&lt;b>I&lt;/b> Settings&lt;br/>&lt;small>8 designed&lt;/small>"]:::flow
+  I["&lt;b>I&lt;/b> Settings&lt;br/>&lt;small>10 designed&lt;/small>"]:::flow
   J["&lt;b>J&lt;/b> Voice assistant (exploratory)&lt;br/>&lt;small>5 designed&lt;/small>"]:::flow
   S["&lt;b>S&lt;/b> Shared pieces&lt;br/>&lt;small>2 designed&lt;/small>"]:::flow
   A -- "5" --> B
@@ -47,9 +47,9 @@
   D -- "1" --> E
   D -- "4" --> S
   E -- "1" --> B
-  E -- "2" --> C
+  E -- "3" --> C
   E -- "1" --> D
-  E -- "12" --> F
+  E -- "18" --> F
   E -. "1" .-> I
   E -- "1" --> J
   E -- "3" --> S
@@ -73,10 +73,10 @@
   A1 -- "◇ ⏱ Waits (later launch)" --> to_B2
   A2 == "⇄ Continue" ==> A3
   A3 == "⇄ Continue" ==> A4
-  A2 -. "⇄ Swipes left" .-> A3
-  A3 -. "⇄ Swipes left" .-> A4
-  A3 -. "⇄ Swipes right" .-> A2
-  A4 -. "⇄ Swipes right" .-> A3
+  A2 == "⇄ Swipes left" ==> A3
+  A3 == "⇄ Swipes left" ==> A4
+  A3 == "⇄ Swipes right" ==> A2
+  A4 == "⇄ Swipes right" ==> A3
   A2 -- "⌂ Skip" --> to_B1
   A3 -- "⌂ Skip" --> to_B1
   A4 -- "⌂ Get started" --> to_B1
@@ -94,7 +94,7 @@
   click A4 href "./#A4" _blank
   classDef designed fill:#ffffff,stroke:#1c1c1e,stroke-width:1.5px,color:#1c1c1e;
   classDef planned fill:#fafafa,stroke:#a0a0a8,stroke-width:1.5px,stroke-dasharray:6 4,color:#6e6e73;
-  classDef outside fill:#eef4ff,stroke:#0a84ff,stroke-width:1px,color:#0a4aa8;</pre><details><summary>All 16 transitions in this flow</summary><table><tr><th>From</th><th>The user does</th><th>To</th><th>How</th><th>Status</th></tr><tr class=""><td>A1</td><td>Waits 1.5 seconds or taps, on first launch</td><td>A2</td><td>auto</td><td>Designed</td></tr><tr class=""><td>A1</td><td>Waits, on a later launch with no moves</td><td>B1</td><td>auto</td><td>Condition</td></tr><tr class=""><td>A1</td><td>Waits, on a later launch with moves</td><td>B2</td><td>auto</td><td>Condition</td></tr><tr class=""><td>A2</td><td>Taps Continue</td><td>A3</td><td>switch</td><td>Designed</td></tr><tr class=""><td>A3</td><td>Taps Continue</td><td>A4</td><td>switch</td><td>Designed</td></tr><tr class="p"><td>A2</td><td>Swipes left</td><td>A3</td><td>switch</td><td>Planned</td></tr><tr class="p"><td>A3</td><td>Swipes left</td><td>A4</td><td>switch</td><td>Planned</td></tr><tr class="p"><td>A3</td><td>Swipes right</td><td>A2</td><td>switch</td><td>Planned</td></tr><tr class="p"><td>A4</td><td>Swipes right</td><td>A3</td><td>switch</td><td>Planned</td></tr><tr class=""><td>A2</td><td>Taps Skip</td><td>B1</td><td>home</td><td>Designed</td></tr><tr class=""><td>A3</td><td>Taps Skip</td><td>B1</td><td>home</td><td>Designed</td></tr><tr class=""><td>A4</td><td>Taps Get started</td><td>B1</td><td>home</td><td>Designed</td></tr><tr class=""><td>A4</td><td>Taps Add my teachers first</td><td>H4</td><td>open</td><td>Designed</td></tr><tr class=""><td>A2</td><td>Taps Skip or Get started, when replayed from Settings</td><td>I1</td><td>home</td><td>Web only</td></tr><tr class=""><td>A3</td><td>Taps Skip or Get started, when replayed from Settings</td><td>I1</td><td>home</td><td>Web only</td></tr><tr class=""><td>A4</td><td>Taps Skip or Get started, when replayed from Settings</td><td>I1</td><td>home</td><td>Web only</td></tr></table></details></section>
+  classDef outside fill:#eef4ff,stroke:#0a84ff,stroke-width:1px,color:#0a4aa8;</pre><details><summary>All 16 transitions in this flow</summary><table><tr><th>From</th><th>The user does</th><th>To</th><th>How</th><th>Status</th></tr><tr class=""><td>A1</td><td>Waits 1.5 seconds or taps, on first launch</td><td>A2</td><td>auto</td><td>Designed</td></tr><tr class=""><td>A1</td><td>Waits, on a later launch with no moves</td><td>B1</td><td>auto</td><td>Condition</td></tr><tr class=""><td>A1</td><td>Waits, on a later launch with moves</td><td>B2</td><td>auto</td><td>Condition</td></tr><tr class=""><td>A2</td><td>Taps Continue</td><td>A3</td><td>switch</td><td>Designed</td></tr><tr class=""><td>A3</td><td>Taps Continue</td><td>A4</td><td>switch</td><td>Designed</td></tr><tr class=""><td>A2</td><td>Swipes left</td><td>A3</td><td>switch</td><td>Web only</td></tr><tr class=""><td>A3</td><td>Swipes left</td><td>A4</td><td>switch</td><td>Web only</td></tr><tr class=""><td>A3</td><td>Swipes right</td><td>A2</td><td>switch</td><td>Web only</td></tr><tr class=""><td>A4</td><td>Swipes right</td><td>A3</td><td>switch</td><td>Web only</td></tr><tr class=""><td>A2</td><td>Taps Skip</td><td>B1</td><td>home</td><td>Designed</td></tr><tr class=""><td>A3</td><td>Taps Skip</td><td>B1</td><td>home</td><td>Designed</td></tr><tr class=""><td>A4</td><td>Taps Get started</td><td>B1</td><td>home</td><td>Designed</td></tr><tr class=""><td>A4</td><td>Taps Add my teachers first</td><td>H4</td><td>open</td><td>Designed</td></tr><tr class=""><td>A2</td><td>Taps Skip or Get started, when replayed from Settings</td><td>I1</td><td>home</td><td>Web only</td></tr><tr class=""><td>A3</td><td>Taps Skip or Get started, when replayed from Settings</td><td>I1</td><td>home</td><td>Web only</td></tr><tr class=""><td>A4</td><td>Taps Skip or Get started, when replayed from Settings</td><td>I1</td><td>home</td><td>Web only</td></tr></table></details></section>
 <section><h2 id="B">B · Library</h2><pre class="mermaid">flowchart LR
   B1["&lt;img src='img/B1.jpg' width='70' height='152' style='border-radius:9px;display:block;margin:0 auto 6px'/>&lt;b>B1&lt;/b> Library, empty&lt;br/>&lt;small>tab root&lt;/small>"]:::designed
   B2["&lt;img src='img/B2.jpg' width='70' height='152' style='border-radius:9px;display:block;margin:0 auto 6px'/>&lt;b>B2&lt;/b> Library&lt;br/>&lt;small>tab root&lt;/small>"]:::designed
@@ -160,7 +160,7 @@
   C4["&lt;img src='img/C4.jpg' width='70' height='152' style='border-radius:9px;display:block;margin:0 auto 6px'/>&lt;b>C4&lt;/b> Save take&lt;br/>&lt;small>sheet&lt;/small>"]:::designed
   C5["&lt;img src='img/C5.jpg' width='70' height='152' style='border-radius:9px;display:block;margin:0 auto 6px'/>&lt;b>C5&lt;/b> Camera and microphone permission&lt;br/>&lt;small>dialog&lt;/small>&lt;br/>&lt;i>← Don't allow&lt;/i>"]:::designed
   C6["&lt;img src='img/C6.jpg' width='70' height='152' style='border-radius:9px;display:block;margin:0 auto 6px'/>&lt;b>C6&lt;/b> Discard this recording?&lt;br/>&lt;small>dialog&lt;/small>&lt;br/>&lt;i>← Keep&lt;/i>"]:::designed
-  C7["&lt;img src='img/C7.jpg' width='70' height='152' style='border-radius:9px;display:block;margin:0 auto 6px'/>&lt;b>C7&lt;/b> Recording interrupted&lt;br/>&lt;small>dialog&lt;/small>"]:::designed
+  C7["&lt;img src='img/C7.jpg' width='70' height='152' style='border-radius:9px;display:block;margin:0 auto 6px'/>&lt;b>C7&lt;/b> Recording stopped&lt;br/>&lt;small>dialog&lt;/small>"]:::designed
   from_B1(["&lt;b>B1&lt;/b> Library, empty →"]):::outside
   from_B1 -- "Record" --> C1
   from_B2(["&lt;b>B2&lt;/b> Library →"]):::outside
@@ -174,14 +174,14 @@
   C1 -. "the class in the top bar" .-> to_S1
   to_F1(["→ &lt;b>F1&lt;/b> Player"]):::outside
   C1 -- "the last-clip thumbnail" --> to_F1
-  C1 -. "⇄ Record, with listening already switched on" .-> C3
-  C1 == "⇄ Record" ==> C2
+  C1 == "⇄ Record" ==> C3
+  C1 == "◇ ⇄ Record after switching the microphone off" ==> C2
   C2 == "⇄ the microphone (listening on)" ==> C3
   C3 == "⇄ the microphone (listening off)" ==> C2
   C2 == "⇄ Stop" ==> C4
   C3 == "⇄ Stop" ==> C4
-  C2 == "◇ ⇄ Is interrupted" ==> C7
-  C3 == "◇ ⇄ Is interrupted" ==> C7
+  C2 == "◇ ⇄ Runs out of space, or the app is left" ==> C7
+  C3 == "◇ ⇄ Runs out of space, or the app is left" ==> C7
   C7 == "⇄ OK" ==> C4
   to_E10(["→ &lt;b>E10&lt;/b> Move just saved"]):::outside
   C4 -- "⌂ Save" --> to_E10
@@ -194,6 +194,8 @@
   from_E2 -- "Add take" --> C1
   from_E10(["&lt;b>E10&lt;/b> Move just saved →"]):::outside
   from_E10 -- "Add take" --> C1
+  from_E11(["&lt;b>E11&lt;/b> Move, takes of a second move →"]):::outside
+  from_E11 -- "Add take" --> C1
   C4 -- "the Teacher row" --> to_S1
   C4 -. "any other row that shows a value" .-> to_S1
   click C1 href "./#C1" _blank
@@ -205,7 +207,7 @@
   click C7 href "./#C7" _blank
   classDef designed fill:#ffffff,stroke:#1c1c1e,stroke-width:1.5px,color:#1c1c1e;
   classDef planned fill:#fafafa,stroke:#a0a0a8,stroke-width:1.5px,stroke-dasharray:6 4,color:#6e6e73;
-  classDef outside fill:#eef4ff,stroke:#0a84ff,stroke-width:1px,color:#0a4aa8;</pre><details><summary>All 19 transitions in this flow</summary><table><tr><th>From</th><th>The user does</th><th>To</th><th>How</th><th>Status</th></tr><tr class=""><td>C5</td><td>Taps Allow</td><td>C1</td><td>switch</td><td>Designed</td></tr><tr class=""><td>C5</td><td>Taps Don't allow</td><td>back</td><td>back</td><td>Designed</td></tr><tr class="p"><td>C1</td><td>Taps the class in the top bar</td><td>S1</td><td>open</td><td>Planned</td></tr><tr class=""><td>C1</td><td>Taps the last-clip thumbnail</td><td>F1</td><td>open</td><td>Designed</td></tr><tr class="p"><td>C1</td><td>Taps Record, with listening already switched on</td><td>C3</td><td>switch</td><td>Planned</td></tr><tr class=""><td>C1</td><td>Taps Close</td><td>back</td><td>back</td><td>Designed</td></tr><tr class=""><td>C1</td><td>Taps Record</td><td>C2</td><td>switch</td><td>Designed</td></tr><tr class=""><td>C2</td><td>Taps the microphone (listening on)</td><td>C3</td><td>switch</td><td>Designed</td></tr><tr class=""><td>C3</td><td>Taps the microphone (listening off)</td><td>C2</td><td>switch</td><td>Designed</td></tr><tr class=""><td>C2</td><td>Taps Stop</td><td>C4</td><td>switch</td><td>Designed</td></tr><tr class=""><td>C3</td><td>Taps Stop</td><td>C4</td><td>switch</td><td>Designed</td></tr><tr class=""><td>C2</td><td>Is interrupted</td><td>C7</td><td>switch</td><td>Condition</td></tr><tr class=""><td>C3</td><td>Is interrupted</td><td>C7</td><td>switch</td><td>Condition</td></tr><tr class=""><td>C7</td><td>Taps OK</td><td>C4</td><td>switch</td><td>Designed</td></tr><tr class=""><td>C4</td><td>Taps Save</td><td>E10</td><td>home</td><td>Designed</td></tr><tr class=""><td>C4</td><td>Taps Add to existing move</td><td>D3</td><td>open</td><td>Designed</td></tr><tr class=""><td>C4</td><td>Taps Discard</td><td>C6</td><td>open</td><td>Designed</td></tr><tr class=""><td>C6</td><td>Taps Discard</td><td>B2</td><td>home</td><td>Designed</td></tr><tr class=""><td>C6</td><td>Taps Keep</td><td>back</td><td>back</td><td>Designed</td></tr></table></details></section>
+  classDef outside fill:#eef4ff,stroke:#0a84ff,stroke-width:1px,color:#0a4aa8;</pre><details><summary>All 19 transitions in this flow</summary><table><tr><th>From</th><th>The user does</th><th>To</th><th>How</th><th>Status</th></tr><tr class=""><td>C5</td><td>Taps Allow</td><td>C1</td><td>switch</td><td>Designed</td></tr><tr class=""><td>C5</td><td>Taps Don't allow</td><td>back</td><td>back</td><td>Designed</td></tr><tr class="p"><td>C1</td><td>Taps the class in the top bar</td><td>S1</td><td>open</td><td>Planned</td></tr><tr class=""><td>C1</td><td>Taps the last-clip thumbnail</td><td>F1</td><td>open</td><td>Designed</td></tr><tr class=""><td>C1</td><td>Taps Close</td><td>back</td><td>back</td><td>Designed</td></tr><tr class=""><td>C1</td><td>Taps Record</td><td>C3</td><td>switch</td><td>Designed</td></tr><tr class=""><td>C1</td><td>Taps Record after switching the microphone off</td><td>C2</td><td>switch</td><td>Condition</td></tr><tr class=""><td>C2</td><td>Taps the microphone (listening on)</td><td>C3</td><td>switch</td><td>Designed</td></tr><tr class=""><td>C3</td><td>Taps the microphone (listening off)</td><td>C2</td><td>switch</td><td>Designed</td></tr><tr class=""><td>C2</td><td>Taps Stop</td><td>C4</td><td>switch</td><td>Designed</td></tr><tr class=""><td>C3</td><td>Taps Stop</td><td>C4</td><td>switch</td><td>Designed</td></tr><tr class=""><td>C2</td><td>Runs out of space, or the app is left</td><td>C7</td><td>switch</td><td>Condition</td></tr><tr class=""><td>C3</td><td>Runs out of space, or the app is left</td><td>C7</td><td>switch</td><td>Condition</td></tr><tr class=""><td>C7</td><td>Taps OK</td><td>C4</td><td>switch</td><td>Designed</td></tr><tr class=""><td>C4</td><td>Taps Save</td><td>E10</td><td>home</td><td>Designed</td></tr><tr class=""><td>C4</td><td>Taps Add to existing move</td><td>D3</td><td>open</td><td>Designed</td></tr><tr class=""><td>C4</td><td>Taps Discard</td><td>C6</td><td>open</td><td>Designed</td></tr><tr class=""><td>C6</td><td>Taps Discard</td><td>B2</td><td>home</td><td>Designed</td></tr><tr class=""><td>C6</td><td>Taps Keep</td><td>back</td><td>back</td><td>Designed</td></tr></table></details></section>
 <section><h2 id="D">D · Import</h2><pre class="mermaid">flowchart LR
   D1["&lt;img src='img/D1.jpg' width='70' height='152' style='border-radius:9px;display:block;margin:0 auto 6px'/>&lt;b>D1&lt;/b> Pick clips&lt;br/>&lt;small>screen&lt;/small>&lt;br/>&lt;i>← Cancel&lt;/i>"]:::designed
   D2["&lt;img src='img/D2.jpg' width='70' height='152' style='border-radius:9px;display:block;margin:0 auto 6px'/>&lt;b>D2&lt;/b> Review import&lt;br/>&lt;small>screen&lt;/small>&lt;br/>&lt;i>← Back&lt;/i>"]:::designed
@@ -233,7 +235,6 @@
   D4 == "⇄ Switches to Camera roll" ==> D1
   to_B2(["→ &lt;b>B2&lt;/b> Library"]):::outside
   D4 -- "⌂ Add or Add to library" --> to_B2
-  D4 -. "Add" .-> D7
   D4 -- "◇ Add with a link that cannot be fetched" --> D8
   D2 -- "Import" --> D7
   D2 -- "Add to existing move" --> D3
@@ -261,7 +262,7 @@
   click D9 href "./#D9" _blank
   classDef designed fill:#ffffff,stroke:#1c1c1e,stroke-width:1.5px,color:#1c1c1e;
   classDef planned fill:#fafafa,stroke:#a0a0a8,stroke-width:1.5px,stroke-dasharray:6 4,color:#6e6e73;
-  classDef outside fill:#eef4ff,stroke:#0a84ff,stroke-width:1px,color:#0a4aa8;</pre><details><summary>All 24 transitions in this flow</summary><table><tr><th>From</th><th>The user does</th><th>To</th><th>How</th><th>Status</th></tr><tr class=""><td>D6</td><td>Taps Allow</td><td>D1</td><td>switch</td><td>Designed</td></tr><tr class=""><td>D6</td><td>Taps Don't allow</td><td>back</td><td>back</td><td>Designed</td></tr><tr class=""><td>D1</td><td>Opens the camera roll when it has no videos</td><td>D9</td><td>switch</td><td>Condition</td></tr><tr class=""><td>D9</td><td>Taps Cancel</td><td>back</td><td>back</td><td>Designed</td></tr><tr class=""><td>D9</td><td>Switches to Link, or taps Add from a link</td><td>D4</td><td>switch</td><td>Designed</td></tr><tr class=""><td>D1</td><td>Taps Cancel</td><td>back</td><td>back</td><td>Designed</td></tr><tr class=""><td>D4</td><td>Taps Cancel</td><td>back</td><td>back</td><td>Designed</td></tr><tr class=""><td>D1</td><td>Taps Next</td><td>D2</td><td>open</td><td>Designed</td></tr><tr class=""><td>D1</td><td>Switches to Link</td><td>D4</td><td>switch</td><td>Designed</td></tr><tr class=""><td>D4</td><td>Switches to Camera roll</td><td>D1</td><td>switch</td><td>Designed</td></tr><tr class=""><td>D4</td><td>Taps Add or Add to library</td><td>B2</td><td>home</td><td>Designed</td></tr><tr class="p"><td>D4</td><td>Taps Add, once it shows progress</td><td>D7</td><td>open</td><td>Planned</td></tr><tr class=""><td>D4</td><td>Taps Add with a link that cannot be fetched</td><td>D8</td><td>open</td><td>Condition</td></tr><tr class=""><td>D2</td><td>Taps Back</td><td>back</td><td>back</td><td>Designed</td></tr><tr class=""><td>D2</td><td>Taps Import</td><td>D7</td><td>open</td><td>Designed</td></tr><tr class=""><td>D2</td><td>Taps Add to existing move</td><td>D3</td><td>open</td><td>Designed</td></tr><tr class=""><td>D7</td><td>Finishes, by itself after about 2 seconds</td><td>B2</td><td>home</td><td>Designed</td></tr><tr class=""><td>D7</td><td>Taps Cancel import</td><td>back</td><td>back</td><td>Designed</td></tr><tr class=""><td>D7</td><td>Fails</td><td>D8</td><td>switch</td><td>Condition</td></tr><tr class=""><td>D8</td><td>Taps OK</td><td>back</td><td>back</td><td>Designed</td></tr><tr class=""><td>D3</td><td>Taps Cancel</td><td>back</td><td>back</td><td>Designed</td></tr><tr class=""><td>D3</td><td>Taps a move</td><td>E2</td><td>home</td><td>Designed</td></tr><tr class=""><td>D5</td><td>Taps Cancel, Save, or the dimmed area</td><td>back</td><td>back</td><td>Designed</td></tr><tr class=""><td>D5</td><td>Taps Add to existing move</td><td>D3</td><td>open</td><td>Designed</td></tr></table></details></section>
+  classDef outside fill:#eef4ff,stroke:#0a84ff,stroke-width:1px,color:#0a4aa8;</pre><details><summary>All 23 transitions in this flow</summary><table><tr><th>From</th><th>The user does</th><th>To</th><th>How</th><th>Status</th></tr><tr class=""><td>D6</td><td>Taps Allow</td><td>D1</td><td>switch</td><td>Designed</td></tr><tr class=""><td>D6</td><td>Taps Don't allow</td><td>back</td><td>back</td><td>Designed</td></tr><tr class=""><td>D1</td><td>Opens the camera roll when it has no videos</td><td>D9</td><td>switch</td><td>Condition</td></tr><tr class=""><td>D9</td><td>Taps Cancel</td><td>back</td><td>back</td><td>Designed</td></tr><tr class=""><td>D9</td><td>Switches to Link, or taps Add from a link</td><td>D4</td><td>switch</td><td>Designed</td></tr><tr class=""><td>D1</td><td>Taps Cancel</td><td>back</td><td>back</td><td>Designed</td></tr><tr class=""><td>D4</td><td>Taps Cancel</td><td>back</td><td>back</td><td>Designed</td></tr><tr class=""><td>D1</td><td>Taps Next</td><td>D2</td><td>open</td><td>Designed</td></tr><tr class=""><td>D1</td><td>Switches to Link</td><td>D4</td><td>switch</td><td>Designed</td></tr><tr class=""><td>D4</td><td>Switches to Camera roll</td><td>D1</td><td>switch</td><td>Designed</td></tr><tr class=""><td>D4</td><td>Taps Add or Add to library</td><td>B2</td><td>home</td><td>Designed</td></tr><tr class=""><td>D4</td><td>Taps Add with a link that cannot be fetched</td><td>D8</td><td>open</td><td>Condition</td></tr><tr class=""><td>D2</td><td>Taps Back</td><td>back</td><td>back</td><td>Designed</td></tr><tr class=""><td>D2</td><td>Taps Import</td><td>D7</td><td>open</td><td>Designed</td></tr><tr class=""><td>D2</td><td>Taps Add to existing move</td><td>D3</td><td>open</td><td>Designed</td></tr><tr class=""><td>D7</td><td>Finishes, by itself after about 2 seconds</td><td>B2</td><td>home</td><td>Designed</td></tr><tr class=""><td>D7</td><td>Taps Cancel import</td><td>back</td><td>back</td><td>Designed</td></tr><tr class=""><td>D7</td><td>Fails</td><td>D8</td><td>switch</td><td>Condition</td></tr><tr class=""><td>D8</td><td>Taps OK</td><td>back</td><td>back</td><td>Designed</td></tr><tr class=""><td>D3</td><td>Taps Cancel</td><td>back</td><td>back</td><td>Designed</td></tr><tr class=""><td>D3</td><td>Taps a move</td><td>E2</td><td>home</td><td>Designed</td></tr><tr class=""><td>D5</td><td>Taps Cancel, Save, or the dimmed area</td><td>back</td><td>back</td><td>Designed</td></tr><tr class=""><td>D5</td><td>Taps Add to existing move</td><td>D3</td><td>open</td><td>Designed</td></tr></table></details></section>
 <section><h2 id="E">E · Move</h2><pre class="mermaid">flowchart LR
   E1["&lt;img src='img/E1.jpg' width='70' height='152' style='border-radius:9px;display:block;margin:0 auto 6px'/>&lt;b>E1&lt;/b> Move, steps&lt;br/>&lt;small>screen&lt;/small>&lt;br/>&lt;i>← Back&lt;/i>"]:::designed
   E2["&lt;img src='img/E2.jpg' width='70' height='152' style='border-radius:9px;display:block;margin:0 auto 6px'/>&lt;b>E2&lt;/b> Move, takes&lt;br/>&lt;small>variant&lt;/small>&lt;br/>&lt;i>← Back&lt;/i>"]:::designed
@@ -273,6 +274,9 @@
   E8["&lt;img src='img/E8.jpg' width='70' height='152' style='border-radius:9px;display:block;margin:0 auto 6px'/>&lt;b>E8&lt;/b> Move, no steps yet&lt;br/>&lt;small>variant&lt;/small>&lt;br/>&lt;i>← Back&lt;/i>"]:::designed
   E9["&lt;img src='img/E9.jpg' width='70' height='152' style='border-radius:9px;display:block;margin:0 auto 6px'/>&lt;b>E9&lt;/b> Move, no tips yet&lt;br/>&lt;small>variant&lt;/small>&lt;br/>&lt;i>← Back&lt;/i>"]:::designed
   E10["&lt;img src='img/E10.jpg' width='70' height='152' style='border-radius:9px;display:block;margin:0 auto 6px'/>&lt;b>E10&lt;/b> Move just saved&lt;br/>&lt;small>variant&lt;/small>&lt;br/>&lt;i>← Back&lt;/i>"]:::designed
+  E11["&lt;img src='img/E11.jpg' width='70' height='152' style='border-radius:9px;display:block;margin:0 auto 6px'/>&lt;b>E11&lt;/b> Move, takes of a second move&lt;br/>&lt;small>variant&lt;/small>&lt;br/>&lt;i>← Back&lt;/i>"]:::designed
+  E12["&lt;img src='img/E12.jpg' width='70' height='152' style='border-radius:9px;display:block;margin:0 auto 6px'/>&lt;b>E12&lt;/b> Move just saved, steps&lt;br/>&lt;small>variant&lt;/small>&lt;br/>&lt;i>← Back&lt;/i>"]:::designed
+  E13["&lt;img src='img/E13.jpg' width='70' height='152' style='border-radius:9px;display:block;margin:0 auto 6px'/>&lt;b>E13&lt;/b> Move just saved, no tips yet&lt;br/>&lt;small>variant&lt;/small>&lt;br/>&lt;i>← Back&lt;/i>"]:::designed
   from_B2(["&lt;b>B2&lt;/b> Library →"]):::outside
   from_B2 -- "a move" --> E1
   from_B3(["&lt;b>B3&lt;/b> Library, filtered by style →"]):::outside
@@ -290,6 +294,9 @@
   E8 -- "Edit" --> E4
   E9 -- "Edit" --> E4
   E10 -- "Edit" --> E4
+  E11 -- "Edit" --> E4
+  E12 -- "Edit" --> E4
+  E13 -- "Edit" --> E4
   to_F1(["→ &lt;b>F1&lt;/b> Player"]):::outside
   E1 -- "the video or Play" --> to_F1
   E2 -- "the video or Play" --> to_F1
@@ -297,6 +304,9 @@
   E8 -- "the video or Play" --> to_F1
   E9 -- "the video or Play" --> to_F1
   E10 -- "the video or Play" --> to_F1
+  E11 -- "the video or Play" --> to_F1
+  E12 -- "the video or Play" --> to_F1
+  E13 -- "the video or Play" --> to_F1
   E2 == "⇄ Chooses Steps" ==> E1
   E3 == "⇄ Chooses Steps" ==> E1
   E1 == "⇄ Chooses Takes" ==> E2
@@ -304,19 +314,26 @@
   E1 == "⇄ Chooses Tips" ==> E3
   E2 == "⇄ Chooses Tips" ==> E3
   E1 -- "a step" --> to_F1
+  E12 -- "a step" --> to_F1
   E1 -- "Edit steps" --> E5
+  E12 -- "Edit steps" --> E5
   from_B2 -- "a move that has no steps yet" --> E8
   E8 -- "Add steps" --> E5
   E8 == "⇄ Chooses Tips" ==> E9
   E9 == "⇄ Chooses Steps" ==> E8
-  E8 == "≈ ⇄ Chooses Takes" ==> E2
-  E9 == "≈ ⇄ Chooses Takes" ==> E2
+  E8 == "⇄ Chooses Takes" ==> E11
+  E9 == "⇄ Chooses Takes" ==> E11
+  E11 == "⇄ Chooses Steps" ==> E8
+  E11 == "⇄ Chooses Tips" ==> E9
   to_F3(["→ &lt;b>F3&lt;/b> Tips editor"]):::outside
   E9 -- "Add tip" --> to_F3
+  E13 -- "Add tip" --> to_F3
   E2 -- "an angle" --> to_F1
+  E11 -- "an angle" --> to_F1
   to_C1(["→ &lt;b>C1&lt;/b> Record, ready"]):::outside
   E2 -- "Add take" --> to_C1
   E10 -- "Add take" --> to_C1
+  E11 -- "Add take" --> to_C1
   to_J3(["→ &lt;b>J3&lt;/b> Compare with teacher"]):::outside
   E2 -- "Compare with teacher" --> to_J3
   E2 -- "Presses and holds a take" --> E7
@@ -326,10 +343,14 @@
   to_F9(["→ &lt;b>F9&lt;/b> Edit one tip"]):::outside
   E3 -- "a tip" --> to_F9
   E10 -- "the new take" --> to_F1
-  E10 == "≈ ⇄ Chooses Steps" ==> E1
-  E10 == "≈ ⇄ Chooses Tips" ==> E3
-  to_I7(["→ &lt;b>I7&lt;/b> Edit tag"]):::outside
-  E4 -. "Add tag" .-> to_I7
+  E10 == "⇄ Chooses Steps" ==> E12
+  E10 == "⇄ Chooses Tips" ==> E13
+  E12 == "⇄ Chooses Tips" ==> E13
+  E13 == "⇄ Chooses Steps" ==> E12
+  E12 == "⇄ Chooses Takes" ==> E10
+  E13 == "⇄ Chooses Takes" ==> E10
+  to_I10(["→ &lt;b>I10&lt;/b> New tag"]):::outside
+  E4 -. "Add tag" .-> to_I10
   E4 -- "Delete move" --> E6
   to_B2(["→ &lt;b>B2&lt;/b> Library"]):::outside
   E6 -- "⌂ Delete" --> to_B2
@@ -356,9 +377,12 @@
   click E8 href "./#E8" _blank
   click E9 href "./#E9" _blank
   click E10 href "./#E10" _blank
+  click E11 href "./#E11" _blank
+  click E12 href "./#E12" _blank
+  click E13 href "./#E13" _blank
   classDef designed fill:#ffffff,stroke:#1c1c1e,stroke-width:1.5px,color:#1c1c1e;
   classDef planned fill:#fafafa,stroke:#a0a0a8,stroke-width:1.5px,stroke-dasharray:6 4,color:#6e6e73;
-  classDef outside fill:#eef4ff,stroke:#0a84ff,stroke-width:1px,color:#0a4aa8;</pre><details><summary>All 51 transitions in this flow</summary><table><tr><th>From</th><th>The user does</th><th>To</th><th>How</th><th>Status</th></tr><tr class=""><td>E1</td><td>Taps Back</td><td>back</td><td>back</td><td>Designed</td></tr><tr class=""><td>E2</td><td>Taps Back</td><td>back</td><td>back</td><td>Designed</td></tr><tr class=""><td>E3</td><td>Taps Back</td><td>back</td><td>back</td><td>Designed</td></tr><tr class=""><td>E8</td><td>Taps Back</td><td>back</td><td>back</td><td>Designed</td></tr><tr class=""><td>E9</td><td>Taps Back</td><td>back</td><td>back</td><td>Designed</td></tr><tr class=""><td>E10</td><td>Taps Back</td><td>back</td><td>back</td><td>Designed</td></tr><tr class=""><td>E1</td><td>Taps Edit</td><td>E4</td><td>open</td><td>Designed</td></tr><tr class=""><td>E2</td><td>Taps Edit</td><td>E4</td><td>open</td><td>Designed</td></tr><tr class=""><td>E3</td><td>Taps Edit</td><td>E4</td><td>open</td><td>Designed</td></tr><tr class=""><td>E8</td><td>Taps Edit</td><td>E4</td><td>open</td><td>Designed</td></tr><tr class=""><td>E9</td><td>Taps Edit</td><td>E4</td><td>open</td><td>Designed</td></tr><tr class=""><td>E10</td><td>Taps Edit</td><td>E4</td><td>open</td><td>Designed</td></tr><tr class=""><td>E1</td><td>Taps the video or Play</td><td>F1</td><td>open</td><td>Designed</td></tr><tr class=""><td>E2</td><td>Taps the video or Play</td><td>F1</td><td>open</td><td>Designed</td></tr><tr class=""><td>E3</td><td>Taps the video or Play</td><td>F1</td><td>open</td><td>Designed</td></tr><tr class=""><td>E8</td><td>Taps the video or Play</td><td>F1</td><td>open</td><td>Designed</td></tr><tr class=""><td>E9</td><td>Taps the video or Play</td><td>F1</td><td>open</td><td>Designed</td></tr><tr class=""><td>E10</td><td>Taps the video or Play</td><td>F1</td><td>open</td><td>Designed</td></tr><tr class=""><td>E2</td><td>Chooses Steps</td><td>E1</td><td>switch</td><td>Designed</td></tr><tr class=""><td>E3</td><td>Chooses Steps</td><td>E1</td><td>switch</td><td>Designed</td></tr><tr class=""><td>E1</td><td>Chooses Takes</td><td>E2</td><td>switch</td><td>Designed</td></tr><tr class=""><td>E3</td><td>Chooses Takes</td><td>E2</td><td>switch</td><td>Designed</td></tr><tr class=""><td>E1</td><td>Chooses Tips</td><td>E3</td><td>switch</td><td>Designed</td></tr><tr class=""><td>E2</td><td>Chooses Tips</td><td>E3</td><td>switch</td><td>Designed</td></tr><tr class=""><td>E1</td><td>Taps a step</td><td>F1</td><td>open</td><td>Designed</td></tr><tr class=""><td>E1</td><td>Taps Edit steps</td><td>E5</td><td>open</td><td>Designed</td></tr><tr class=""><td>B2</td><td>Taps a move that has no steps yet</td><td>E8</td><td>open</td><td>Designed</td></tr><tr class=""><td>E8</td><td>Taps Add steps</td><td>E5</td><td>open</td><td>Designed</td></tr><tr class=""><td>E8</td><td>Chooses Tips</td><td>E9</td><td>switch</td><td>Designed</td></tr><tr class=""><td>E9</td><td>Chooses Steps</td><td>E8</td><td>switch</td><td>Designed</td></tr><tr class="s"><td>E8</td><td>Chooses Takes</td><td>E2</td><td>switch</td><td>Stand-in</td></tr><tr class="s"><td>E9</td><td>Chooses Takes</td><td>E2</td><td>switch</td><td>Stand-in</td></tr><tr class=""><td>E9</td><td>Taps Add tip</td><td>F3</td><td>open</td><td>Designed</td></tr><tr class=""><td>E2</td><td>Taps an angle</td><td>F1</td><td>open</td><td>Designed</td></tr><tr class=""><td>E2</td><td>Taps Add take</td><td>C1</td><td>open</td><td>Designed</td></tr><tr class=""><td>E10</td><td>Taps Add take</td><td>C1</td><td>open</td><td>Designed</td></tr><tr class=""><td>E2</td><td>Taps Compare with teacher</td><td>J3</td><td>open</td><td>Designed</td></tr><tr class=""><td>E2</td><td>Presses and holds a take</td><td>E7</td><td>open</td><td>Web only</td></tr><tr class=""><td>E7</td><td>Taps Move to another move</td><td>D3</td><td>switch</td><td>Designed</td></tr><tr class=""><td>E7</td><td>Taps a delete action, or cancels</td><td>back</td><td>back</td><td>Designed</td></tr><tr class=""><td>E3</td><td>Taps Add tip</td><td>F3</td><td>open</td><td>Designed</td></tr><tr class=""><td>E3</td><td>Taps a tip</td><td>F9</td><td>open</td><td>Designed</td></tr><tr class=""><td>E10</td><td>Taps the new take</td><td>F1</td><td>open</td><td>Designed</td></tr><tr class="s"><td>E10</td><td>Chooses Steps</td><td>E1</td><td>switch</td><td>Stand-in</td></tr><tr class="s"><td>E10</td><td>Chooses Tips</td><td>E3</td><td>switch</td><td>Stand-in</td></tr><tr class="p"><td>E4</td><td>Taps Add tag</td><td>I7</td><td>open</td><td>Planned</td></tr><tr class=""><td>E4</td><td>Taps Cancel or Done</td><td>back</td><td>back</td><td>Designed</td></tr><tr class=""><td>E5</td><td>Taps Cancel or Done</td><td>back</td><td>back</td><td>Designed</td></tr><tr class=""><td>E4</td><td>Taps Delete move</td><td>E6</td><td>open</td><td>Designed</td></tr><tr class=""><td>E6</td><td>Taps Delete</td><td>B2</td><td>home</td><td>Designed</td></tr><tr class=""><td>E6</td><td>Taps Cancel</td><td>back</td><td>back</td><td>Designed</td></tr></table></details></section>
+  classDef outside fill:#eef4ff,stroke:#0a84ff,stroke-width:1px,color:#0a4aa8;</pre><details><summary>All 71 transitions in this flow</summary><table><tr><th>From</th><th>The user does</th><th>To</th><th>How</th><th>Status</th></tr><tr class=""><td>E1</td><td>Taps Back</td><td>back</td><td>back</td><td>Designed</td></tr><tr class=""><td>E2</td><td>Taps Back</td><td>back</td><td>back</td><td>Designed</td></tr><tr class=""><td>E3</td><td>Taps Back</td><td>back</td><td>back</td><td>Designed</td></tr><tr class=""><td>E8</td><td>Taps Back</td><td>back</td><td>back</td><td>Designed</td></tr><tr class=""><td>E9</td><td>Taps Back</td><td>back</td><td>back</td><td>Designed</td></tr><tr class=""><td>E10</td><td>Taps Back</td><td>back</td><td>back</td><td>Designed</td></tr><tr class=""><td>E11</td><td>Taps Back</td><td>back</td><td>back</td><td>Designed</td></tr><tr class=""><td>E12</td><td>Taps Back</td><td>back</td><td>back</td><td>Designed</td></tr><tr class=""><td>E13</td><td>Taps Back</td><td>back</td><td>back</td><td>Designed</td></tr><tr class=""><td>E1</td><td>Taps Edit</td><td>E4</td><td>open</td><td>Designed</td></tr><tr class=""><td>E2</td><td>Taps Edit</td><td>E4</td><td>open</td><td>Designed</td></tr><tr class=""><td>E3</td><td>Taps Edit</td><td>E4</td><td>open</td><td>Designed</td></tr><tr class=""><td>E8</td><td>Taps Edit</td><td>E4</td><td>open</td><td>Designed</td></tr><tr class=""><td>E9</td><td>Taps Edit</td><td>E4</td><td>open</td><td>Designed</td></tr><tr class=""><td>E10</td><td>Taps Edit</td><td>E4</td><td>open</td><td>Designed</td></tr><tr class=""><td>E11</td><td>Taps Edit</td><td>E4</td><td>open</td><td>Designed</td></tr><tr class=""><td>E12</td><td>Taps Edit</td><td>E4</td><td>open</td><td>Designed</td></tr><tr class=""><td>E13</td><td>Taps Edit</td><td>E4</td><td>open</td><td>Designed</td></tr><tr class=""><td>E1</td><td>Taps the video or Play</td><td>F1</td><td>open</td><td>Designed</td></tr><tr class=""><td>E2</td><td>Taps the video or Play</td><td>F1</td><td>open</td><td>Designed</td></tr><tr class=""><td>E3</td><td>Taps the video or Play</td><td>F1</td><td>open</td><td>Designed</td></tr><tr class=""><td>E8</td><td>Taps the video or Play</td><td>F1</td><td>open</td><td>Designed</td></tr><tr class=""><td>E9</td><td>Taps the video or Play</td><td>F1</td><td>open</td><td>Designed</td></tr><tr class=""><td>E10</td><td>Taps the video or Play</td><td>F1</td><td>open</td><td>Designed</td></tr><tr class=""><td>E11</td><td>Taps the video or Play</td><td>F1</td><td>open</td><td>Designed</td></tr><tr class=""><td>E12</td><td>Taps the video or Play</td><td>F1</td><td>open</td><td>Designed</td></tr><tr class=""><td>E13</td><td>Taps the video or Play</td><td>F1</td><td>open</td><td>Designed</td></tr><tr class=""><td>E2</td><td>Chooses Steps</td><td>E1</td><td>switch</td><td>Designed</td></tr><tr class=""><td>E3</td><td>Chooses Steps</td><td>E1</td><td>switch</td><td>Designed</td></tr><tr class=""><td>E1</td><td>Chooses Takes</td><td>E2</td><td>switch</td><td>Designed</td></tr><tr class=""><td>E3</td><td>Chooses Takes</td><td>E2</td><td>switch</td><td>Designed</td></tr><tr class=""><td>E1</td><td>Chooses Tips</td><td>E3</td><td>switch</td><td>Designed</td></tr><tr class=""><td>E2</td><td>Chooses Tips</td><td>E3</td><td>switch</td><td>Designed</td></tr><tr class=""><td>E1</td><td>Taps a step</td><td>F1</td><td>open</td><td>Designed</td></tr><tr class=""><td>E12</td><td>Taps a step</td><td>F1</td><td>open</td><td>Designed</td></tr><tr class=""><td>E1</td><td>Taps Edit steps</td><td>E5</td><td>open</td><td>Designed</td></tr><tr class=""><td>E12</td><td>Taps Edit steps</td><td>E5</td><td>open</td><td>Designed</td></tr><tr class=""><td>B2</td><td>Taps a move that has no steps yet</td><td>E8</td><td>open</td><td>Designed</td></tr><tr class=""><td>E8</td><td>Taps Add steps</td><td>E5</td><td>open</td><td>Designed</td></tr><tr class=""><td>E8</td><td>Chooses Tips</td><td>E9</td><td>switch</td><td>Designed</td></tr><tr class=""><td>E9</td><td>Chooses Steps</td><td>E8</td><td>switch</td><td>Designed</td></tr><tr class=""><td>E8</td><td>Chooses Takes</td><td>E11</td><td>switch</td><td>Designed</td></tr><tr class=""><td>E9</td><td>Chooses Takes</td><td>E11</td><td>switch</td><td>Designed</td></tr><tr class=""><td>E11</td><td>Chooses Steps</td><td>E8</td><td>switch</td><td>Designed</td></tr><tr class=""><td>E11</td><td>Chooses Tips</td><td>E9</td><td>switch</td><td>Designed</td></tr><tr class=""><td>E9</td><td>Taps Add tip</td><td>F3</td><td>open</td><td>Designed</td></tr><tr class=""><td>E13</td><td>Taps Add tip</td><td>F3</td><td>open</td><td>Designed</td></tr><tr class=""><td>E2</td><td>Taps an angle</td><td>F1</td><td>open</td><td>Designed</td></tr><tr class=""><td>E11</td><td>Taps an angle</td><td>F1</td><td>open</td><td>Designed</td></tr><tr class=""><td>E2</td><td>Taps Add take</td><td>C1</td><td>open</td><td>Designed</td></tr><tr class=""><td>E10</td><td>Taps Add take</td><td>C1</td><td>open</td><td>Designed</td></tr><tr class=""><td>E11</td><td>Taps Add take</td><td>C1</td><td>open</td><td>Designed</td></tr><tr class=""><td>E2</td><td>Taps Compare with teacher</td><td>J3</td><td>open</td><td>Designed</td></tr><tr class=""><td>E2</td><td>Presses and holds a take</td><td>E7</td><td>open</td><td>Web only</td></tr><tr class=""><td>E7</td><td>Taps Move to another move</td><td>D3</td><td>switch</td><td>Designed</td></tr><tr class=""><td>E7</td><td>Taps a delete action, or cancels</td><td>back</td><td>back</td><td>Designed</td></tr><tr class=""><td>E3</td><td>Taps Add tip</td><td>F3</td><td>open</td><td>Designed</td></tr><tr class=""><td>E3</td><td>Taps a tip</td><td>F9</td><td>open</td><td>Designed</td></tr><tr class=""><td>E10</td><td>Taps the new take</td><td>F1</td><td>open</td><td>Designed</td></tr><tr class=""><td>E10</td><td>Chooses Steps</td><td>E12</td><td>switch</td><td>Designed</td></tr><tr class=""><td>E10</td><td>Chooses Tips</td><td>E13</td><td>switch</td><td>Designed</td></tr><tr class=""><td>E12</td><td>Chooses Tips</td><td>E13</td><td>switch</td><td>Designed</td></tr><tr class=""><td>E13</td><td>Chooses Steps</td><td>E12</td><td>switch</td><td>Designed</td></tr><tr class=""><td>E12</td><td>Chooses Takes</td><td>E10</td><td>switch</td><td>Designed</td></tr><tr class=""><td>E13</td><td>Chooses Takes</td><td>E10</td><td>switch</td><td>Designed</td></tr><tr class="p"><td>E4</td><td>Taps Add tag</td><td>I10</td><td>open</td><td>Planned</td></tr><tr class=""><td>E4</td><td>Taps Cancel or Done</td><td>back</td><td>back</td><td>Designed</td></tr><tr class=""><td>E5</td><td>Taps Cancel or Done</td><td>back</td><td>back</td><td>Designed</td></tr><tr class=""><td>E4</td><td>Taps Delete move</td><td>E6</td><td>open</td><td>Designed</td></tr><tr class=""><td>E6</td><td>Taps Delete</td><td>B2</td><td>home</td><td>Designed</td></tr><tr class=""><td>E6</td><td>Taps Cancel</td><td>back</td><td>back</td><td>Designed</td></tr></table></details></section>
 <section><h2 id="F">F · Player</h2><pre class="mermaid">flowchart LR
   F1["&lt;img src='img/F1.jpg' width='70' height='152' style='border-radius:9px;display:block;margin:0 auto 6px'/>&lt;b>F1&lt;/b> Player&lt;br/>&lt;small>full screen&lt;/small>&lt;br/>&lt;i>← Close&lt;/i>"]:::designed
   F2["&lt;img src='img/F2.jpg' width='70' height='152' style='border-radius:9px;display:block;margin:0 auto 6px'/>&lt;b>F2&lt;/b> Player, controls hidden&lt;br/>&lt;small>variant&lt;/small>"]:::designed
@@ -388,9 +412,18 @@
   from_E9 -- "the video or Play" --> F1
   from_E10(["&lt;b>E10&lt;/b> Move just saved →"]):::outside
   from_E10 -- "the video or Play" --> F1
+  from_E11(["&lt;b>E11&lt;/b> Move, takes of a second move →"]):::outside
+  from_E11 -- "the video or Play" --> F1
+  from_E12(["&lt;b>E12&lt;/b> Move just saved, steps →"]):::outside
+  from_E12 -- "the video or Play" --> F1
+  from_E13(["&lt;b>E13&lt;/b> Move just saved, no tips yet →"]):::outside
+  from_E13 -- "the video or Play" --> F1
   from_E1 -- "a step" --> F1
+  from_E12 -- "a step" --> F1
   from_E9 -- "Add tip" --> F3
+  from_E13 -- "Add tip" --> F3
   from_E2 -- "an angle" --> F1
+  from_E11 -- "an angle" --> F1
   from_E3 -- "Add tip" --> F3
   from_E3 -- "a tip" --> F9
   from_E10 -- "the new take" --> F1
@@ -435,7 +468,8 @@
   G5["&lt;img src='img/G5.jpg' width='70' height='152' style='border-radius:9px;display:block;margin:0 auto 6px'/>&lt;b>G5&lt;/b> Date range&lt;br/>&lt;small>sheet&lt;/small>&lt;br/>&lt;i>← Done or the dimmed area&lt;/i>"]:::designed
   G6["&lt;img src='img/G6.jpg' width='70' height='152' style='border-radius:9px;display:block;margin:0 auto 6px'/>&lt;b>G6&lt;/b> Search, typing&lt;br/>&lt;small>variant&lt;/small>"]:::designed
   G1 == "⇄ the search field" ==> G6
-  G1 -- "≈ a recent search, a style or a teacher" --> G2
+  G1 -- "the first recent search" --> G2
+  G1 -. "another recent search, a style or a teacher" .-> G2
   G6 -- "a suggestion" --> G2
   G6 == "⇄ Cancel" ==> G1
   G2 -- "Filters" --> G3
@@ -453,7 +487,7 @@
   click G6 href "./#G6" _blank
   classDef designed fill:#ffffff,stroke:#1c1c1e,stroke-width:1.5px,color:#1c1c1e;
   classDef planned fill:#fafafa,stroke:#a0a0a8,stroke-width:1.5px,stroke-dasharray:6 4,color:#6e6e73;
-  classDef outside fill:#eef4ff,stroke:#0a84ff,stroke-width:1px,color:#0a4aa8;</pre><details><summary>All 14 transitions in this flow</summary><table><tr><th>From</th><th>The user does</th><th>To</th><th>How</th><th>Status</th></tr><tr class=""><td>G1</td><td>Taps the search field</td><td>G6</td><td>switch</td><td>Designed</td></tr><tr class="s"><td>G1</td><td>Taps a recent search, a style or a teacher</td><td>G2</td><td>open</td><td>Stand-in</td></tr><tr class=""><td>G6</td><td>Taps a suggestion</td><td>G2</td><td>open</td><td>Designed</td></tr><tr class=""><td>G6</td><td>Taps Cancel</td><td>G1</td><td>switch</td><td>Designed</td></tr><tr class=""><td>G2</td><td>Taps Back</td><td>back</td><td>back</td><td>Designed</td></tr><tr class=""><td>G2</td><td>Taps Filters</td><td>G3</td><td>open</td><td>Designed</td></tr><tr class=""><td>G4</td><td>Taps Filters</td><td>G3</td><td>open</td><td>Designed</td></tr><tr class=""><td>G2</td><td>Taps a move</td><td>E1</td><td>open</td><td>Designed</td></tr><tr class=""><td>G2</td><td>Searches for something with no match</td><td>G4</td><td>switch</td><td>Condition</td></tr><tr class=""><td>G4</td><td>Taps Clear filters</td><td>G2</td><td>switch</td><td>Designed</td></tr><tr class=""><td>G4</td><td>Taps Back</td><td>back</td><td>back</td><td>Designed</td></tr><tr class=""><td>G3</td><td>Taps Apply or the dimmed area</td><td>back</td><td>back</td><td>Designed</td></tr><tr class=""><td>G3</td><td>Taps Custom range</td><td>G5</td><td>open</td><td>Designed</td></tr><tr class=""><td>G5</td><td>Taps Done or the dimmed area</td><td>back</td><td>back</td><td>Designed</td></tr></table></details></section>
+  classDef outside fill:#eef4ff,stroke:#0a84ff,stroke-width:1px,color:#0a4aa8;</pre><details><summary>All 15 transitions in this flow</summary><table><tr><th>From</th><th>The user does</th><th>To</th><th>How</th><th>Status</th></tr><tr class=""><td>G1</td><td>Taps the search field</td><td>G6</td><td>switch</td><td>Designed</td></tr><tr class=""><td>G1</td><td>Taps the first recent search</td><td>G2</td><td>open</td><td>Designed</td></tr><tr class="p"><td>G1</td><td>Taps another recent search, a style or a teacher</td><td>G2</td><td>open</td><td>Planned</td></tr><tr class=""><td>G6</td><td>Taps a suggestion</td><td>G2</td><td>open</td><td>Designed</td></tr><tr class=""><td>G6</td><td>Taps Cancel</td><td>G1</td><td>switch</td><td>Designed</td></tr><tr class=""><td>G2</td><td>Taps Back</td><td>back</td><td>back</td><td>Designed</td></tr><tr class=""><td>G2</td><td>Taps Filters</td><td>G3</td><td>open</td><td>Designed</td></tr><tr class=""><td>G4</td><td>Taps Filters</td><td>G3</td><td>open</td><td>Designed</td></tr><tr class=""><td>G2</td><td>Taps a move</td><td>E1</td><td>open</td><td>Designed</td></tr><tr class=""><td>G2</td><td>Searches for something with no match</td><td>G4</td><td>switch</td><td>Condition</td></tr><tr class=""><td>G4</td><td>Taps Clear filters</td><td>G2</td><td>switch</td><td>Designed</td></tr><tr class=""><td>G4</td><td>Taps Back</td><td>back</td><td>back</td><td>Designed</td></tr><tr class=""><td>G3</td><td>Taps Apply or the dimmed area</td><td>back</td><td>back</td><td>Designed</td></tr><tr class=""><td>G3</td><td>Taps Custom range</td><td>G5</td><td>open</td><td>Designed</td></tr><tr class=""><td>G5</td><td>Taps Done or the dimmed area</td><td>back</td><td>back</td><td>Designed</td></tr></table></details></section>
 <section><h2 id="H">H · Teachers</h2><pre class="mermaid">flowchart LR
   H1["&lt;img src='img/H1.jpg' width='70' height='152' style='border-radius:9px;display:block;margin:0 auto 6px'/>&lt;b>H1&lt;/b> Teachers&lt;br/>&lt;small>tab root&lt;/small>"]:::designed
   H2["&lt;img src='img/H2.jpg' width='70' height='152' style='border-radius:9px;display:block;margin:0 auto 6px'/>&lt;b>H2&lt;/b> Teacher&lt;br/>&lt;small>screen&lt;/small>&lt;br/>&lt;i>← Back&lt;/i>"]:::designed
@@ -514,6 +548,8 @@
   I6["&lt;img src='img/I6.jpg' width='70' height='152' style='border-radius:9px;display:block;margin:0 auto 6px'/>&lt;b>I6&lt;/b> Edit style&lt;br/>&lt;small>sheet&lt;/small>&lt;br/>&lt;i>← Cancel, Done or Delete&lt;/i>"]:::designed
   I7["&lt;img src='img/I7.jpg' width='70' height='152' style='border-radius:9px;display:block;margin:0 auto 6px'/>&lt;b>I7&lt;/b> Edit tag&lt;br/>&lt;small>sheet&lt;/small>&lt;br/>&lt;i>← Cancel, Done or Delete&lt;/i>"]:::designed
   I8["&lt;img src='img/I8.jpg' width='70' height='152' style='border-radius:9px;display:block;margin:0 auto 6px'/>&lt;b>I8&lt;/b> Free up space&lt;br/>&lt;small>screen&lt;/small>&lt;br/>&lt;i>← Deletes the chosen videos or goes back&lt;/i>"]:::designed
+  I9["&lt;img src='img/I9.jpg' width='70' height='152' style='border-radius:9px;display:block;margin:0 auto 6px'/>&lt;b>I9&lt;/b> New style&lt;br/>&lt;small>sheet&lt;/small>&lt;br/>&lt;i>← Cancel or Done&lt;/i>"]:::designed
+  I10["&lt;img src='img/I10.jpg' width='70' height='152' style='border-radius:9px;display:block;margin:0 auto 6px'/>&lt;b>I10&lt;/b> New tag&lt;br/>&lt;small>sheet&lt;/small>&lt;br/>&lt;i>← Cancel or Done&lt;/i>"]:::designed
   from_A2(["&lt;b>A2&lt;/b> Introduction 1: film →"]):::outside
   from_A2 -- "⌂ Skip or Get started" --> I1
   from_A3(["&lt;b>A3&lt;/b> Introduction 2: study →"]):::outside
@@ -521,7 +557,7 @@
   from_A4(["&lt;b>A4&lt;/b> Introduction 3: schedule →"]):::outside
   from_A4 -- "⌂ Skip or Get started" --> I1
   from_E4(["&lt;b>E4&lt;/b> Edit move →"]):::outside
-  from_E4 -. "Add tag" .-> I7
+  from_E4 -. "Add tag" .-> I10
   I1 -- "Styles" --> I2
   I1 -- "Tags" --> I3
   I1 -- "Storage and sync" --> I4
@@ -530,9 +566,9 @@
   I1 -- "Theme" --> I5
   I1 -. "Language or Video quality" .-> I5
   I2 -- "a style" --> I6
-  I2 -. "Add" .-> I6
+  I2 -- "Add" --> I9
   I3 -- "a tag" --> I7
-  I3 -. "Add" .-> I7
+  I3 -- "Add" --> I10
   I4 -- "Free up space" --> I8
   click I1 href "./#I1" _blank
   click I2 href "./#I2" _blank
@@ -542,9 +578,11 @@
   click I6 href "./#I6" _blank
   click I7 href "./#I7" _blank
   click I8 href "./#I8" _blank
+  click I9 href "./#I9" _blank
+  click I10 href "./#I10" _blank
   classDef designed fill:#ffffff,stroke:#1c1c1e,stroke-width:1.5px,color:#1c1c1e;
   classDef planned fill:#fafafa,stroke:#a0a0a8,stroke-width:1.5px,stroke-dasharray:6 4,color:#6e6e73;
-  classDef outside fill:#eef4ff,stroke:#0a84ff,stroke-width:1px,color:#0a4aa8;</pre><details><summary>All 18 transitions in this flow</summary><table><tr><th>From</th><th>The user does</th><th>To</th><th>How</th><th>Status</th></tr><tr class=""><td>I1</td><td>Taps Styles</td><td>I2</td><td>open</td><td>Designed</td></tr><tr class=""><td>I1</td><td>Taps Tags</td><td>I3</td><td>open</td><td>Designed</td></tr><tr class=""><td>I1</td><td>Taps Storage and sync</td><td>I4</td><td>open</td><td>Designed</td></tr><tr class=""><td>I1</td><td>Taps Replay introduction</td><td>A2</td><td>open</td><td>Designed</td></tr><tr class=""><td>I1</td><td>Taps Theme</td><td>I5</td><td>open</td><td>Designed</td></tr><tr class="p"><td>I1</td><td>Taps Language or Video quality</td><td>I5</td><td>open</td><td>Planned</td></tr><tr class=""><td>I5</td><td>Picks one or goes back</td><td>back</td><td>back</td><td>Designed</td></tr><tr class=""><td>I2</td><td>Taps Back</td><td>back</td><td>back</td><td>Designed</td></tr><tr class=""><td>I3</td><td>Taps Back</td><td>back</td><td>back</td><td>Designed</td></tr><tr class=""><td>I4</td><td>Taps Back</td><td>back</td><td>back</td><td>Designed</td></tr><tr class=""><td>I2</td><td>Taps a style</td><td>I6</td><td>open</td><td>Designed</td></tr><tr class="p"><td>I2</td><td>Taps Add</td><td>I6</td><td>open</td><td>Planned</td></tr><tr class=""><td>I3</td><td>Taps a tag</td><td>I7</td><td>open</td><td>Designed</td></tr><tr class="p"><td>I3</td><td>Taps Add</td><td>I7</td><td>open</td><td>Planned</td></tr><tr class=""><td>I6</td><td>Taps Cancel, Done or Delete</td><td>back</td><td>back</td><td>Designed</td></tr><tr class=""><td>I7</td><td>Taps Cancel, Done or Delete</td><td>back</td><td>back</td><td>Designed</td></tr><tr class=""><td>I4</td><td>Taps Free up space</td><td>I8</td><td>open</td><td>Designed</td></tr><tr class=""><td>I8</td><td>Deletes the chosen videos or goes back</td><td>back</td><td>back</td><td>Designed</td></tr></table></details></section>
+  classDef outside fill:#eef4ff,stroke:#0a84ff,stroke-width:1px,color:#0a4aa8;</pre><details><summary>All 20 transitions in this flow</summary><table><tr><th>From</th><th>The user does</th><th>To</th><th>How</th><th>Status</th></tr><tr class=""><td>I1</td><td>Taps Styles</td><td>I2</td><td>open</td><td>Designed</td></tr><tr class=""><td>I1</td><td>Taps Tags</td><td>I3</td><td>open</td><td>Designed</td></tr><tr class=""><td>I1</td><td>Taps Storage and sync</td><td>I4</td><td>open</td><td>Designed</td></tr><tr class=""><td>I1</td><td>Taps Replay introduction</td><td>A2</td><td>open</td><td>Designed</td></tr><tr class=""><td>I1</td><td>Taps Theme</td><td>I5</td><td>open</td><td>Designed</td></tr><tr class="p"><td>I1</td><td>Taps Language or Video quality</td><td>I5</td><td>open</td><td>Planned</td></tr><tr class=""><td>I5</td><td>Picks one or goes back</td><td>back</td><td>back</td><td>Designed</td></tr><tr class=""><td>I2</td><td>Taps Back</td><td>back</td><td>back</td><td>Designed</td></tr><tr class=""><td>I3</td><td>Taps Back</td><td>back</td><td>back</td><td>Designed</td></tr><tr class=""><td>I4</td><td>Taps Back</td><td>back</td><td>back</td><td>Designed</td></tr><tr class=""><td>I2</td><td>Taps a style</td><td>I6</td><td>open</td><td>Designed</td></tr><tr class=""><td>I2</td><td>Taps Add</td><td>I9</td><td>open</td><td>Designed</td></tr><tr class=""><td>I3</td><td>Taps a tag</td><td>I7</td><td>open</td><td>Designed</td></tr><tr class=""><td>I3</td><td>Taps Add</td><td>I10</td><td>open</td><td>Designed</td></tr><tr class=""><td>I6</td><td>Taps Cancel, Done or Delete</td><td>back</td><td>back</td><td>Designed</td></tr><tr class=""><td>I7</td><td>Taps Cancel, Done or Delete</td><td>back</td><td>back</td><td>Designed</td></tr><tr class=""><td>I9</td><td>Taps Cancel or Done</td><td>back</td><td>back</td><td>Designed</td></tr><tr class=""><td>I10</td><td>Taps Cancel or Done</td><td>back</td><td>back</td><td>Designed</td></tr><tr class=""><td>I4</td><td>Taps Free up space</td><td>I8</td><td>open</td><td>Designed</td></tr><tr class=""><td>I8</td><td>Deletes the chosen videos or goes back</td><td>back</td><td>back</td><td>Designed</td></tr></table></details></section>
 <section><h2 id="J">J · Voice assistant (exploratory)</h2><pre class="mermaid">flowchart LR
   J1["&lt;img src='img/J1.jpg' width='70' height='152' style='border-radius:9px;display:block;margin:0 auto 6px'/>&lt;b>J1&lt;/b> Assistant, listening&lt;br/>&lt;small>sheet&lt;/small>&lt;br/>&lt;i>← Cancel or the dimmed area&lt;/i>"]:::designed
   J2["&lt;img src='img/J2.jpg' width='70' height='152' style='border-radius:9px;display:block;margin:0 auto 6px'/>&lt;b>J2&lt;/b> Review changes&lt;br/>&lt;small>modal&lt;/small>&lt;br/>&lt;i>← Discard · Apply&lt;/i>"]:::designed

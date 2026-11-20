@@ -25,6 +25,10 @@
   #toast { position: absolute; left: 50%; bottom: 13%; transform: translateX(-50%); background: rgba(0, 0, 0, .82); color: #fff; padding: 9px 15px; border-radius: 18px; font-size: 13px; white-space: nowrap; pointer-events: none; opacity: 0; transition: opacity .25s; z-index: 2; }
   #toast.on { opacity: 1; }
   #menuBtn { position: absolute; left: 34%; top: 1.6%; width: 32%; height: 4.6%; border: 0; background: transparent; cursor: pointer; border-radius: 30px; }
+  #menuBtn.has::after { content: ''; position: absolute; right: 12%; top: 50%; width: 9px; height: 9px; margin-top: -4.5px; border-radius: 50%; background: #ff9f0a; }
+  .ev h3 { font-size: 13px; font-weight: 600; color: #ff9f0a; margin: 4px 0 6px; } .ev { margin-bottom: 14px; }
+  .ev button { all: unset; cursor: pointer; display: block; padding: 8px 12px; margin: 0 0 6px; border-radius: 10px; background: #2c2c2e; color: #f2f2f7; font-size: 14px; }
+  .ev button:hover { background: #3a3a3c; }
   #hint { position: absolute; left: 50%; top: 7.5%; transform: translateX(-50%); background: rgba(0, 0, 0, .78); color: #fff; padding: 8px 14px; border-radius: 18px; font-size: 13px; white-space: nowrap; pointer-events: none; transition: opacity .6s; }
   #side { width: 300px; max-height: 92dvh; overflow: auto; display: none; }
   #side h1 { font-size: 22px; margin: 0 0 4px; } #side p { color: #98989f; margin: 0 0 16px; }
@@ -58,11 +62,12 @@
     <p>Clickable prototype. Tap the screen like a real app. Press and hold a move in the library, or a take, for more actions.</p>
     <p><a href="map.html" style="color:#0a84ff">Navigation map</a></p>
     <label class="tog"><input type="checkbox" id="showHots"> Show where to tap (dashed: press and hold)</label>
+    <div class="ev" id="evSide"></div>
     <div class="list" id="listSide"></div>
   </aside>
 </div>
-<div id="sheet"><button class="close" id="closeSheet">Close</button><h2>All screens</h2><p><a href="map.html" style="color:#0a84ff">Navigation map</a></p><div class="list" id="listSheet"></div></div>
-<script src="data.js?v=mwpivtee"></script>
+<div id="sheet"><button class="close" id="closeSheet">Close</button><div class="ev" id="evSheet"></div><h2>All screens</h2><p><a href="map.html" style="color:#0a84ff">Navigation map</a></p><div class="list" id="listSheet"></div></div>
+<script src="data.js?v=mwpjbhac"></script>
 <script>
 const byId = Object.fromEntries(SCREENS.map(s => [s.id, s]));
 // Self-check: every tap area must lead to a screen that exists.
@@ -84,6 +89,12 @@ function show(id, push = true) {
     return b;
   }));
   if (s.auto) timer = setTimeout(() => current === id && go(s.auto[0], s.auto[2]), s.auto[1]);
+  // Things that can happen on this screen without a tap (a full phone, an empty camera roll, turning the phone).
+  for (const el of [document.getElementById('evSide'), document.getElementById('evSheet')]) {
+    el.replaceChildren(); if (!s.e) continue;
+    const h = document.createElement('h3'); h.textContent = 'What can happen here'; el.append(h, ...s.e.map(([label, to, how]) => { const b = document.createElement('button'); b.textContent = label + ' → ' + byId[to].t; b.onclick = () => { sheet.classList.remove('open'); go(to, how); }; return b; }));
+  }
+  document.getElementById('menuBtn').classList.toggle('has', !!s.e);
   history.replaceState(null, '', '#' + id);
   document.querySelectorAll('.list button').forEach(b => b.classList.toggle('on', b.dataset.id === id));
 }
@@ -103,10 +114,12 @@ function go(to, how) {
   show(to);
 }
 // Swiping from the left edge goes back, as on an iPhone. Escape does the same on a computer.
-let swipe = null;
-stage.addEventListener('touchstart', e => { const t = e.touches[0]; swipe = t.clientX - stage.getBoundingClientRect().left < 30 ? t.clientX : null; }, { passive: true });
-stage.addEventListener('touchend', e => { if (swipe !== null && e.changedTouches[0].clientX - swipe > 70) back(); swipe = null; });
-addEventListener('keydown', e => { if (e.key === 'Escape') back(); });
+// Screens that list a swipe in navigation.md (the introduction pages) move with a sideways swipe or the arrow keys.
+let swipe = null, edge = false;
+const swipeTo = dir => { const s = byId[current].sw; if (s && s[dir]) { go(...s[dir]); return true; } return false; };
+stage.addEventListener('touchstart', e => { const t = e.touches[0]; swipe = t.clientX; edge = swipe - stage.getBoundingClientRect().left < 30; }, { passive: true });
+stage.addEventListener('touchend', e => { if (swipe === null) return; const dx = e.changedTouches[0].clientX - swipe; swipe = null; if (dx < -60 && swipeTo('left')) return; if (dx > 60 && swipeTo('right')) return; if (edge && dx > 70) back(); });
+addEventListener('keydown', e => { if (e.key === 'Escape') back(); if (e.key === 'ArrowRight') swipeTo('left'); if (e.key === 'ArrowLeft') swipeTo('right'); });
 
 // Pressing and holding (about half a second) on an area marked "hold" opens its menu, as a long-press does on an iPhone.
 let holdTimer = null, held = false;
