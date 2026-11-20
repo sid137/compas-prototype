@@ -60,7 +60,7 @@
   </aside>
 </div>
 <div id="sheet"><button class="close" id="closeSheet">Close</button><h2>All screens</h2><p><a href="map.html" style="color:#0a84ff">Navigation map</a></p><div class="list" id="listSheet"></div></div>
-<script src="data.js?v=mwphszkk"></script>
+<script src="data.js?v=mwphz9xp"></script>
 <script>
 const byId = Object.fromEntries(SCREENS.map(s => [s.id, s]));
 // Self-check: every tap area must lead to a screen that exists.
@@ -81,7 +81,7 @@ function show(id, push = true) {
     b.onclick = e => { e.stopPropagation(); go(to, how); };
     return b;
   }));
-  if (s.auto) timer = setTimeout(() => current === id && show(s.auto[0]), s.auto[1]);
+  if (s.auto) timer = setTimeout(() => current === id && show(s.auto[0], false), s.auto[1]);
   history.replaceState(null, '', '#' + id);
   document.querySelectorAll('.list button').forEach(b => b.classList.toggle('on', b.dataset.id === id));
 }
@@ -90,7 +90,7 @@ function back() { stack.length ? show(stack.pop(), false) : show('B2', false); }
 const TAB_ROOT = { G: 'G1', H: 'H1', I: 'I1' }; // every other flow belongs to the Library
 function go(to, how) {
   if (to === 'back' || how === 'back') return back();
-  if (how === 'switch') return show(to, false);                     // replaces the current state
+  if (how === 'switch' || how === 'auto') return show(to, false);                     // replaces the current state
   if (how === 'tab') { stack.length = 0; return show(to, false); }
   if (how === 'home') {                                             // finishes a task: clear the trail
     if (to === 'B1' && stack.includes('I1')) to = 'I1';             // the introduction replayed from Settings returns there
