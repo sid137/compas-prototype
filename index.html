@@ -13,11 +13,13 @@
   html, body { margin: 0; height: 100%; background: #000; color: #f2f2f7; font: 15px/1.4 -apple-system, system-ui, "Segoe UI", sans-serif; overflow: hidden; overscroll-behavior: none; }
   #app { height: 100dvh; display: flex; align-items: center; justify-content: center; gap: 48px; }
   /* The screen keeps the 430:932 shape and fits whatever space it has. */
-  #stage { position: relative; aspect-ratio: 430 / 932; height: min(100dvh, calc(100vw * 932 / 430)); container-type: size; touch-action: manipulation; user-select: none; }
+  #stage { position: relative; aspect-ratio: 430 / 932; height: min(100dvh, calc(100vw * 932 / 430)); container-type: size; touch-action: manipulation; user-select: none; -webkit-user-select: none; -webkit-touch-callout: none; }
   #stage img { position: absolute; inset: 0; width: 100%; height: 100%; display: block; pointer-events: none; }
   .hot { position: absolute; border: 0; padding: 0; background: transparent; cursor: pointer; border-radius: 10px; }
   .hot:focus-visible { outline: 2px solid #0a84ff; }
+  .hold { position: absolute; pointer-events: none; border-radius: 10px; }
   .show .hot { background: rgba(10, 132, 255, .28); outline: 1.5px solid rgba(10, 132, 255, .9); }
+  .show .hold { outline: 2px dashed rgba(255, 159, 10, .95); }
   .flash .hot { animation: flash 1.6s ease-out; }
   @keyframes flash { 0%, 55% { background: rgba(10, 132, 255, .38); outline: 2px solid rgba(10, 132, 255, .95); } 100% { background: transparent; outline: 2px solid transparent; } }
   #toast { position: absolute; left: 50%; bottom: 13%; transform: translateX(-50%); background: rgba(0, 0, 0, .82); color: #fff; padding: 9px 15px; border-radius: 18px; font-size: 13px; white-space: nowrap; pointer-events: none; opacity: 0; transition: opacity .25s; z-index: 2; }
@@ -53,14 +55,14 @@
   </div>
   <aside id="side">
     <h1>Compás</h1>
-    <p>Clickable prototype. Tap the screen like a real app.</p>
+    <p>Clickable prototype. Tap the screen like a real app. Press and hold a move in the library, or a take, for more actions.</p>
     <p><a href="map.html" style="color:#0a84ff">Navigation map</a></p>
-    <label class="tog"><input type="checkbox" id="showHots"> Show where to tap</label>
+    <label class="tog"><input type="checkbox" id="showHots"> Show where to tap (dashed: press and hold)</label>
     <div class="list" id="listSide"></div>
   </aside>
 </div>
 <div id="sheet"><button class="close" id="closeSheet">Close</button><h2>All screens</h2><p><a href="map.html" style="color:#0a84ff">Navigation map</a></p><div class="list" id="listSheet"></div></div>
-<script src="data.js?v=mwphz9xp"></script>
+<script src="data.js?v=mwpivtee"></script>
 <script>
 const byId = Object.fromEntries(SCREENS.map(s => [s.id, s]));
 // Self-check: every tap area must lead to a screen that exists.
@@ -75,13 +77,13 @@ function show(id, push = true) {
   if (push && current) stack.push(current);
   current = id;
   shot.src = 'img/' + id + '.jpg?v=' + BUILD; shot.alt = s.t;
-  hots.replaceChildren(...s.h.map(([x, y, w, h, to, how]) => {
-    const b = document.createElement('button'); b.className = 'hot'; b.setAttribute('aria-label', to === 'back' ? 'Back' : 'Go to ' + byId[to].t);
+  hots.replaceChildren(...s.h.map(([x, y, w, h, to, how, hold]) => {
+    const b = document.createElement(hold ? 'div' : 'button'); b.className = hold ? 'hold' : 'hot'; b.setAttribute('aria-label', to === 'back' ? 'Back' : 'Go to ' + byId[to].t);
     b.style.cssText = `left:${x / 4.3}%;top:${y / 9.32}%;width:${w / 4.3}%;height:${h / 9.32}%`;
-    b.onclick = e => { e.stopPropagation(); go(to, how); };
+    if (!hold) b.onclick = e => { e.stopPropagation(); go(to, how); };
     return b;
   }));
-  if (s.auto) timer = setTimeout(() => current === id && show(s.auto[0], false), s.auto[1]);
+  if (s.auto) timer = setTimeout(() => current === id && go(s.auto[0], s.auto[2]), s.auto[1]);
   history.replaceState(null, '', '#' + id);
   document.querySelectorAll('.list button').forEach(b => b.classList.toggle('on', b.dataset.id === id));
 }
@@ -105,6 +107,17 @@ let swipe = null;
 stage.addEventListener('touchstart', e => { const t = e.touches[0]; swipe = t.clientX - stage.getBoundingClientRect().left < 30 ? t.clientX : null; }, { passive: true });
 stage.addEventListener('touchend', e => { if (swipe !== null && e.changedTouches[0].clientX - swipe > 70) back(); swipe = null; });
 addEventListener('keydown', e => { if (e.key === 'Escape') back(); });
+
+// Pressing and holding (about half a second) on an area marked "hold" opens its menu, as a long-press does on an iPhone.
+let holdTimer = null, held = false;
+stage.addEventListener('pointerdown', e => {
+  const r = stage.getBoundingClientRect(), px = (e.clientX - r.left) / r.width * 430, py = (e.clientY - r.top) / r.height * 932;
+  const a = byId[current].h.find(h => h[6] && px >= h[0] && px <= h[0] + h[2] && py >= h[1] && py <= h[1] + h[3]);
+  if (a) holdTimer = setTimeout(() => { held = true; go(a[4], a[5]); }, 500);
+});
+for (const ev of ['pointerup', 'pointercancel', 'pointerleave']) stage.addEventListener(ev, () => { clearTimeout(holdTimer); setTimeout(() => held = false, 60); });
+stage.addEventListener('click', e => { if (held) { held = false; e.stopPropagation(); e.preventDefault(); } }, true); // the tap that ends a hold must not count as a tap
+stage.addEventListener('contextmenu', e => e.preventDefault());
 
 // A tap that misses every tap area shows them and says so, so nobody is left guessing.
 const toast = document.getElementById('toast'); let toastTimer = null;
